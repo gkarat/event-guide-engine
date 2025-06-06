@@ -22,3 +22,11 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+  server:
+    build:
+      context: ./tep-server
+      dockerfile: Dockerfile
+    image: tep-server
+    restart: always
+    ports:
+      - "3000:3000"
