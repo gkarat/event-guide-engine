@@ -1,16 +1,24 @@
 version: "3.8"
 
 services:
-  mysql:
-    image: mysql:8
+  db:
+    build:
+      context: ./db
+      dockerfile: Dockerfile
+    image: tep-db
     restart: always
     environment:
-      MYSQL_DATABASE: mydb
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_USER: tepuser
-      MYSQL_PASSWORD: teppass
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
     ports:
       - "3306:3306"
     volumes:
-      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
-      - ./mysql_data:/var/lib/mysql
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./db/mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
