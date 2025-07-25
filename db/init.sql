@@ -8,19 +8,19 @@ SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
 
 -- -----------------------------------------------------
--- Schema mydb
+-- Schema tep
 -- -----------------------------------------------------
 
 -- -----------------------------------------------------
--- Schema mydb
+-- Schema tep
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `mydb` DEFAULT CHARACTER SET utf8 ;
-USE `mydb` ;
+CREATE SCHEMA IF NOT EXISTS `tep` DEFAULT CHARACTER SET utf8 ;
+USE `tep` ;
 
 -- -----------------------------------------------------
--- Table `mydb`.`User`
+-- Table `tep`.`User`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`User` (
+CREATE TABLE IF NOT EXISTS `tep`.`User` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `email` VARCHAR(45) NOT NULL,
   `name` VARCHAR(45) NOT NULL,
@@ -34,9 +34,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`Venue`
+-- Table `tep`.`Venue`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`Venue` (
+CREATE TABLE IF NOT EXISTS `tep`.`Venue` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(255) NOT NULL,
   `address` VARCHAR(255) NULL,
@@ -48,16 +48,16 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Venue` (
   INDEX `fk_Venue_User1_idx` (`submitted_by` ASC) VISIBLE,
   CONSTRAINT `fk_Venue_User1`
     FOREIGN KEY (`submitted_by`)
-    REFERENCES `mydb`.`User` (`id`)
+    REFERENCES `tep`.`User` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`Event`
+-- Table `tep`.`Event`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`Event` (
+CREATE TABLE IF NOT EXISTS `tep`.`Event` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `title` VARCHAR(255) NOT NULL,
   `description` VARCHAR(45) NULL,
@@ -73,21 +73,21 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Event` (
   UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE,
   CONSTRAINT `fk_Event_Venue`
     FOREIGN KEY (`venue_id`)
-    REFERENCES `mydb`.`Venue` (`id`)
+    REFERENCES `tep`.`Venue` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_Event_User1`
     FOREIGN KEY (`submitted_by`)
-    REFERENCES `mydb`.`User` (`id`)
+    REFERENCES `tep`.`User` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`Artist`
+-- Table `tep`.`Artist`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`Artist` (
+CREATE TABLE IF NOT EXISTS `tep`.`Artist` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(255) NOT NULL,
   `description` VARCHAR(45) NULL,
@@ -102,16 +102,16 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Artist` (
   UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE,
   CONSTRAINT `fk_Artist_User1`
     FOREIGN KEY (`submitted_by`)
-    REFERENCES `mydb`.`User` (`id`)
+    REFERENCES `tep`.`User` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`artist_has_event`
+-- Table `tep`.`artist_has_event`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`artist_has_event` (
+CREATE TABLE IF NOT EXISTS `tep`.`artist_has_event` (
   `artist_id` INT NOT NULL,
   `event_id` INT NOT NULL,
   PRIMARY KEY (`artist_id`, `event_id`),
@@ -119,21 +119,21 @@ CREATE TABLE IF NOT EXISTS `mydb`.`artist_has_event` (
   INDEX `fk_Artist_has_Event_Artist1_idx` (`artist_id` ASC) VISIBLE,
   CONSTRAINT `fk_Artist_has_Event_Artist1`
     FOREIGN KEY (`artist_id`)
-    REFERENCES `mydb`.`Artist` (`id`)
+    REFERENCES `tep`.`Artist` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_Artist_has_Event_Event1`
     FOREIGN KEY (`event_id`)
-    REFERENCES `mydb`.`Event` (`id`)
+    REFERENCES `tep`.`Event` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`Media`
+-- Table `tep`.`Media`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`Media` (
+CREATE TABLE IF NOT EXISTS `tep`.`Media` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `url` VARCHAR(500) NOT NULL,
   `type` ENUM('image', 'video') NOT NULL,
@@ -147,26 +147,26 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Media` (
   UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE,
   CONSTRAINT `fk_Media_Venue1`
     FOREIGN KEY (`venue_id`)
-    REFERENCES `mydb`.`Venue` (`id`)
+    REFERENCES `tep`.`Venue` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_Media_Artist1`
     FOREIGN KEY (`artist_id`)
-    REFERENCES `mydb`.`Artist` (`id`)
+    REFERENCES `tep`.`Artist` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_Media_User1`
     FOREIGN KEY (`submitted_by`)
-    REFERENCES `mydb`.`User` (`id`)
+    REFERENCES `tep`.`User` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`Notification`
+-- Table `tep`.`Notification`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`Notification` (
+CREATE TABLE IF NOT EXISTS `tep`.`Notification` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `type` ENUM('event_submission', 'artist_submission', 'contact_form', 'system_message') NOT NULL,
   `title` VARCHAR(255) NOT NULL,
@@ -179,9 +179,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`event_notification`
+-- Table `tep`.`event_notification`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`event_notification` (
+CREATE TABLE IF NOT EXISTS `tep`.`event_notification` (
   `notification_id` INT NOT NULL,
   `event_id` INT NOT NULL,
   PRIMARY KEY (`notification_id`, `event_id`),
@@ -189,21 +189,21 @@ CREATE TABLE IF NOT EXISTS `mydb`.`event_notification` (
   INDEX `fk_Notification_has_Event_Notification1_idx` (`notification_id` ASC) VISIBLE,
   CONSTRAINT `fk_Notification_has_Event_Notification1`
     FOREIGN KEY (`notification_id`)
-    REFERENCES `mydb`.`Notification` (`id`)
+    REFERENCES `tep`.`Notification` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_Notification_has_Event_Event1`
     FOREIGN KEY (`event_id`)
-    REFERENCES `mydb`.`Event` (`id`)
+    REFERENCES `tep`.`Event` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`artist_notification`
+-- Table `tep`.`artist_notification`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`artist_notification` (
+CREATE TABLE IF NOT EXISTS `tep`.`artist_notification` (
   `Notification_id` INT NOT NULL,
   `Artist_id` INT NOT NULL,
   PRIMARY KEY (`Notification_id`, `Artist_id`),
@@ -211,21 +211,21 @@ CREATE TABLE IF NOT EXISTS `mydb`.`artist_notification` (
   INDEX `fk_Notification_has_Artist_Notification1_idx` (`Notification_id` ASC) VISIBLE,
   CONSTRAINT `fk_Notification_has_Artist_Notification1`
     FOREIGN KEY (`Notification_id`)
-    REFERENCES `mydb`.`Notification` (`id`)
+    REFERENCES `tep`.`Notification` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_Notification_has_Artist_Artist1`
     FOREIGN KEY (`Artist_id`)
-    REFERENCES `mydb`.`Artist` (`id`)
+    REFERENCES `tep`.`Artist` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`Language`
+-- Table `tep`.`Language`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`Language` (
+CREATE TABLE IF NOT EXISTS `tep`.`Language` (
   `code` VARCHAR(10) NOT NULL,
   `label` VARCHAR(45) NOT NULL,
   `is_default` TINYINT NOT NULL,
@@ -236,9 +236,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`Artist_has_Media`
+-- Table `tep`.`Artist_has_Media`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`Artist_has_Media` (
+CREATE TABLE IF NOT EXISTS `tep`.`Artist_has_Media` (
   `Artist_id` INT NOT NULL,
   `Media_id` INT NOT NULL,
   PRIMARY KEY (`Artist_id`, `Media_id`),
@@ -246,21 +246,21 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Artist_has_Media` (
   INDEX `fk_Artist_has_Media_Artist1_idx` (`Artist_id` ASC) VISIBLE,
   CONSTRAINT `fk_Artist_has_Media_Artist1`
     FOREIGN KEY (`Artist_id`)
-    REFERENCES `mydb`.`Artist` (`id`)
+    REFERENCES `tep`.`Artist` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_Artist_has_Media_Media1`
     FOREIGN KEY (`Media_id`)
-    REFERENCES `mydb`.`Media` (`id`)
+    REFERENCES `tep`.`Media` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`Venue_has_Media`
+-- Table `tep`.`Venue_has_Media`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`Venue_has_Media` (
+CREATE TABLE IF NOT EXISTS `tep`.`Venue_has_Media` (
   `Venue_id` INT NOT NULL,
   `Media_id` INT NOT NULL,
   PRIMARY KEY (`Venue_id`, `Media_id`),
@@ -268,12 +268,12 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Venue_has_Media` (
   INDEX `fk_Venue_has_Media_Venue1_idx` (`Venue_id` ASC) VISIBLE,
   CONSTRAINT `fk_Venue_has_Media_Venue1`
     FOREIGN KEY (`Venue_id`)
-    REFERENCES `mydb`.`Venue` (`id`)
+    REFERENCES `tep`.`Venue` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_Venue_has_Media_Media1`
     FOREIGN KEY (`Media_id`)
-    REFERENCES `mydb`.`Media` (`id`)
+    REFERENCES `tep`.`Media` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
