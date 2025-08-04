@@ -1,32 +1,37 @@
-version: "3.8"
+version: "3"
 
 services:
-  db:
+  payload:
+    image: node:20-alpine
     build:
-      context: ./db
-      dockerfile: Dockerfile
-    image: tep-db
-    restart: always
-    environment:
-      MYSQL_DATABASE: ${MYSQL_DATABASE}
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-      MYSQL_USER: ${MYSQL_USER}
-      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
-    ports:
-      - "3306:3306"
-    volumes:
-      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
-      - ./db/mysql_data:/var/lib/mysql
-    healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-  server:
-    build:
-      context: ./tep-server
-      dockerfile: Dockerfile
-    image: tep-server
-    restart: always
+      context: ./event-tracker
     ports:
       - "3000:3000"
+    volumes:
+      - .:/home/node/app
+      - node_modules:/home/node/app/node_modules
+    working_dir: /home/node/app/
+    command: sh -c "corepack enable && corepack prepare pnpm@latest --activate && pnpm install && pnpm dev"
+    depends_on:
+      - postgres
+    env_file:
+      - .env
+    environment:
+      DATABASE_URI: postgres://payload_user:payload_password@db:5432/payload_db
+      PAYLOAD_SECRET: your_super_secret_key
+  db:
+    image: postgres:latest
+    restart: always
+    environment:
+      POSTGRES_USER: payload_user
+      POSTGRES_PASSWORD: payload_password
+      POSTGRES_DB: payload_db
+    volumes:
+      - event_tracker_db:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+volumes:
+  data:
+  pgdata:
+  node_modules:
