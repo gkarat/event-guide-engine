@@ -9,6 +9,8 @@ import sharp from 'sharp'
 
 import { Users } from './collections/Users'
 import { Media } from './collections/Media'
+import { Venues } from './collections/Venues'
+import { Events } from './collections/Events'
 import { en } from '@payloadcms/translations/languages/en'
 // Add more interface languages here
 // import { de } from '@payloadcms/translations/languages/de' // German
@@ -23,7 +25,7 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Users, Media],
+  collections: [Users, Media, Venues, Events],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {

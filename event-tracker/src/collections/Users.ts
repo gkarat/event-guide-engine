@@ -1,17 +1,15 @@
 import type { CollectionConfig } from 'payload'
 
-// Helper function to check if user is admin
-const isAdmin = (user: any) => user?.role === 'admin' && user?.suspended === false
+export const isAdmin = (user: any) => user?.role === 'admin' && user?.suspended === false
 
-// Helper function to check if user is admin or moderator
-const isAdminOrModerator = (user: any) =>
+export const isAdminOrModerator = (user: any) =>
   (user?.role === 'admin' || user?.role === 'moderator') && user?.suspended === false
 
 export const Users: CollectionConfig = {
   slug: 'users',
   admin: {
     useAsTitle: 'email',
-    defaultColumns: ['email', 'name', 'role', 'suspended', 'updatedAt'],
+    defaultColumns: ['id', 'email', 'name', 'role', 'suspended', 'updatedAt'],
     group: 'Administration',
   },
   auth: {
