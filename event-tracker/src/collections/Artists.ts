@@ -1,15 +1,10 @@
 import { CollectionConfig } from 'payload'
-import { isAdminOrModerator } from './Users'
 
-export const Venues: CollectionConfig = {
-  slug: 'venues',
+export const Artists: CollectionConfig = {
+  slug: 'artists',
   labels: {
-    singular: 'Venue',
-    plural: 'Venues',
-  },
-  admin: {
-    defaultColumns: ['name', 'address', 'approved', 'submittedBy'],
-    group: 'Content',
+    singular: 'Artist',
+    plural: 'Artists',
   },
   fields: [
     {
@@ -18,25 +13,35 @@ export const Venues: CollectionConfig = {
       required: true,
     },
     {
-      name: 'address',
+      name: 'description',
       type: 'text',
-      required: true,
+    },
+    {
+      name: 'location',
+      type: 'text',
+    },
+    {
+      name: 'genres',
+      type: 'text',
+    },
+    {
+      name: 'url',
+      type: 'text',
+    },
+    {
+      name: 'avatar_url',
+      type: 'text',
     },
     {
       name: 'approved',
       type: 'checkbox',
       defaultValue: false,
-      required: true,
     },
     {
       name: 'submittedBy',
       type: 'relationship',
       relationTo: 'users',
       hasMany: false,
-      admin: {
-        readOnly: true,
-        description: 'Automatically set to the user who created this venue',
-      },
     },
   ],
   hooks: {
@@ -52,11 +57,5 @@ export const Venues: CollectionConfig = {
         return data
       },
     ],
-  },
-  access: {
-    create: ({ req: { user } }) => isAdminOrModerator(user),
-    delete: ({ req: { user } }) => isAdminOrModerator(user),
-    read: ({ req: { user } }) => isAdminOrModerator(user),
-    update: ({ req: { user } }) => isAdminOrModerator(user),
   },
 }

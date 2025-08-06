@@ -7,6 +7,10 @@ export const isAdminOrModerator = (user: any) =>
 
 export const Users: CollectionConfig = {
   slug: 'users',
+  labels: {
+    singular: 'User',
+    plural: 'Users',
+  },
   admin: {
     useAsTitle: 'email',
     defaultColumns: ['id', 'email', 'name', 'role', 'suspended', 'updatedAt'],

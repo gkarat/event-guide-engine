@@ -90,7 +90,7 @@ export interface Config {
   };
   globals: {};
   globalsSelect: {};
-  locale: 'en-US';
+  locale: 'en-US' | 'de';
   user: User & {
     collection: 'users';
   };
@@ -197,11 +197,11 @@ export interface Event {
   startDate: string;
   endDate?: string | null;
   /**
-   * Enter a custom location (use this OR select a venue below)
+   * Enter a custom location (use this OR select a venue in the next field)
    */
   location?: string | null;
   /**
-   * Select a venue from the list (use this OR enter a custom location above)
+   * Select a venue from the list (use this OR enter a custom location in the previous field)
    */
   venue?: (number | null) | Venue;
   /**
