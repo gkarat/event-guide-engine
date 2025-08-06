@@ -125,7 +125,8 @@ export interface UserAuthOperations {
  */
 export interface User {
   id: number;
-  name: string;
+  username?: string | null;
+  name?: string | null;
   /**
    * User role determines access permissions
    */
@@ -136,7 +137,7 @@ export interface User {
   suspended: boolean;
   updatedAt: string;
   createdAt: string;
-  email: string;
+  email?: string | null;
   resetPasswordToken?: string | null;
   resetPasswordExpiration?: string | null;
   salt?: string | null;
@@ -172,10 +173,13 @@ export interface Media {
    * Only approved artists can be selected
    */
   artist?: (number | Artist)[] | null;
+  /**
+   * Automatically set to the user who created this media
+   */
   submittedBy?: (number | null) | User;
   updatedAt: string;
   createdAt: string;
-  url: string;
+  url?: string | null;
   thumbnailURL?: string | null;
   filename?: string | null;
   mimeType?: string | null;
@@ -325,6 +329,7 @@ export interface PayloadMigration {
  * via the `definition` "users_select".
  */
 export interface UsersSelect<T extends boolean = true> {
+  username?: T;
   name?: T;
   role?: T;
   suspended?: T;

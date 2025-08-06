@@ -1,3 +1,4 @@
+import { hasSmtpSet } from '@/constants'
 import type { CollectionConfig } from 'payload'
 
 export const isAdmin = (user: any) => user?.role === 'admin' && user?.suspended === false
@@ -12,12 +13,12 @@ export const Users: CollectionConfig = {
     plural: 'Users',
   },
   admin: {
-    useAsTitle: 'email',
-    defaultColumns: ['id', 'email', 'name', 'role', 'suspended', 'updatedAt'],
+    useAsTitle: 'name',
+    defaultColumns: [hasSmtpSet ? 'email' : 'username', 'name', 'role', 'suspended', 'updatedAt'],
     group: 'Administration',
   },
   auth: {
-    loginWithUsername: false,
+    loginWithUsername: !hasSmtpSet,
   },
   access: {
     admin: ({ req: { user } }) => isAdminOrModerator(user),
@@ -28,9 +29,25 @@ export const Users: CollectionConfig = {
   },
   fields: [
     {
+      name: 'email',
+      type: 'email',
+      required: false,
+      admin: {
+        hidden: !hasSmtpSet,
+      },
+    },
+    {
+      name: 'username',
+      type: 'text',
+      required: !hasSmtpSet,
+      admin: {
+        position: 'sidebar',
+        hidden: hasSmtpSet,
+      },
+    },
+    {
       name: 'name',
       type: 'text',
-      required: true,
     },
     {
       name: 'role',

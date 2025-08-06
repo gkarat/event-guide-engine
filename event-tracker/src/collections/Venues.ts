@@ -10,6 +10,7 @@ export const Venues: CollectionConfig = {
   admin: {
     defaultColumns: ['name', 'address', 'approved', 'submittedBy'],
     group: 'Content',
+    useAsTitle: 'name',
   },
   fields: [
     {

@@ -11,6 +11,8 @@ export const Media: CollectionConfig = {
   },
   admin: {
     group: 'Content',
+    useAsTitle: 'alt',
+    defaultColumns: ['filename', 'type', 'submittedBy'],
   },
   fields: [
     {
@@ -18,11 +20,11 @@ export const Media: CollectionConfig = {
       type: 'text',
       required: true,
     },
-    {
+    /*     {
       name: 'url',
       type: 'text',
       required: true,
-    },
+    }, */
     {
       name: 'type',
       type: 'radio',
@@ -76,7 +78,23 @@ export const Media: CollectionConfig = {
       type: 'relationship',
       relationTo: 'users',
       hasMany: false,
+      admin: {
+        readOnly: true,
+        description: 'Automatically set to the user who created this media',
+      },
     },
   ],
   upload: true,
+  hooks: {
+    beforeChange: [
+      ({ req, data, operation }) => {
+        if (operation === 'create' && !data.submittedBy && req.user) {
+          return {
+            ...data,
+            submittedBy: req.user.id,
+          }
+        }
+      },
+    ],
+  },
 }

@@ -10,6 +10,7 @@ export const Events: CollectionConfig = {
   admin: {
     defaultColumns: ['title', 'location', 'venue', 'submittedBy'],
     group: 'Content',
+    useAsTitle: 'title',
   },
   fields: [
     {

@@ -9,6 +9,7 @@ export const Artists: CollectionConfig = {
   },
   admin: {
     group: 'Content',
+    useAsTitle: 'name',
   },
   fields: [
     {
