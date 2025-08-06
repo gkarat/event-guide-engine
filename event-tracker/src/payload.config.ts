@@ -12,6 +12,8 @@ import { Media } from './collections/Media'
 import { Venues } from './collections/Venues'
 import { Events } from './collections/Events'
 import { en } from '@payloadcms/translations/languages/en'
+import { Artists } from './collections/Artists'
+
 // Add more interface languages here
 // import { de } from '@payloadcms/translations/languages/de' // German
 
@@ -25,7 +27,7 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Users, Media, Venues, Events],
+  collections: [Users, Media, Venues, Events, Artists],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {

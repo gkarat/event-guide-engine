@@ -1,10 +1,14 @@
 import { CollectionConfig } from 'payload'
+import { isAdminOrModerator } from './Users'
 
 export const Artists: CollectionConfig = {
   slug: 'artists',
   labels: {
     singular: 'Artist',
     plural: 'Artists',
+  },
+  admin: {
+    group: 'Content',
   },
   fields: [
     {
@@ -42,6 +46,10 @@ export const Artists: CollectionConfig = {
       type: 'relationship',
       relationTo: 'users',
       hasMany: false,
+      admin: {
+        readOnly: true,
+        description: 'Automatically set to the user who created this artist',
+      },
     },
   ],
   hooks: {
@@ -57,5 +65,11 @@ export const Artists: CollectionConfig = {
         return data
       },
     ],
+  },
+  access: {
+    create: ({ req: { user } }) => isAdminOrModerator(user),
+    delete: ({ req: { user } }) => isAdminOrModerator(user),
+    read: ({ req: { user } }) => isAdminOrModerator(user),
+    update: ({ req: { user } }) => isAdminOrModerator(user),
   },
 }

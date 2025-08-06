@@ -71,6 +71,7 @@ export interface Config {
     media: Media;
     venues: Venue;
     events: Event;
+    artists: Artist;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -81,6 +82,7 @@ export interface Config {
     media: MediaSelect<false> | MediaSelect<true>;
     venues: VenuesSelect<false> | VenuesSelect<true>;
     events: EventsSelect<false> | EventsSelect<true>;
+    artists: ArtistsSelect<false> | ArtistsSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -158,6 +160,19 @@ export interface Media {
   id: number;
   alt: string;
   type: 'image' | 'video';
+  /**
+   * Only approved venues can be selected
+   */
+  venue?: (number | Venue)[] | null;
+  /**
+   * Only approved events can be selected
+   */
+  event?: (number | Event)[] | null;
+  /**
+   * Only approved artists can be selected
+   */
+  artist?: (number | Artist)[] | null;
+  submittedBy?: (number | null) | User;
   updatedAt: string;
   createdAt: string;
   url: string;
@@ -194,6 +209,7 @@ export interface Event {
   id: number;
   title: string;
   description?: string | null;
+  artist?: (number | Artist)[] | null;
   startDate: string;
   endDate?: string | null;
   /**
@@ -210,6 +226,26 @@ export interface Event {
   approved: boolean;
   /**
    * Automatically set to the user who created this event
+   */
+  submittedBy?: (number | null) | User;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "artists".
+ */
+export interface Artist {
+  id: number;
+  name: string;
+  description?: string | null;
+  location?: string | null;
+  genres?: string | null;
+  url?: string | null;
+  avatar_url?: string | null;
+  approved?: boolean | null;
+  /**
+   * Automatically set to the user who created this artist
    */
   submittedBy?: (number | null) | User;
   updatedAt: string;
@@ -237,6 +273,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'events';
         value: number | Event;
+      } | null)
+    | ({
+        relationTo: 'artists';
+        value: number | Artist;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -312,6 +352,10 @@ export interface UsersSelect<T extends boolean = true> {
 export interface MediaSelect<T extends boolean = true> {
   alt?: T;
   type?: T;
+  venue?: T;
+  event?: T;
+  artist?: T;
+  submittedBy?: T;
   updatedAt?: T;
   createdAt?: T;
   url?: T;
@@ -343,10 +387,27 @@ export interface VenuesSelect<T extends boolean = true> {
 export interface EventsSelect<T extends boolean = true> {
   title?: T;
   description?: T;
+  artist?: T;
   startDate?: T;
   endDate?: T;
   location?: T;
   venue?: T;
+  approved?: T;
+  submittedBy?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "artists_select".
+ */
+export interface ArtistsSelect<T extends boolean = true> {
+  name?: T;
+  description?: T;
+  location?: T;
+  genres?: T;
+  url?: T;
+  avatar_url?: T;
   approved?: T;
   submittedBy?: T;
   updatedAt?: T;

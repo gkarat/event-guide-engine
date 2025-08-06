@@ -22,6 +22,12 @@ export const Events: CollectionConfig = {
       type: 'text',
     },
     {
+      name: 'artist',
+      type: 'relationship',
+      relationTo: 'artists',
+      hasMany: true,
+    },
+    {
       name: 'startDate',
       type: 'date',
       required: true,
