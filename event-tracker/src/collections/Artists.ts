@@ -26,8 +26,14 @@ export const Artists: CollectionConfig = {
       type: 'text',
     },
     {
-      name: 'genres',
-      type: 'text',
+      name: 'tags',
+      type: 'array',
+      fields: [
+        {
+          name: 'tag',
+          type: 'text',
+        },
+      ],
     },
     {
       name: 'url',

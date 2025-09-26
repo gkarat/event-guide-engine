@@ -125,7 +125,6 @@ export interface UserAuthOperations {
  */
 export interface User {
   id: number;
-  username?: string | null;
   name?: string | null;
   /**
    * User role determines access permissions
@@ -224,6 +223,12 @@ export interface Event {
    * Select a venue from the list (use this OR enter a custom location in the previous field)
    */
   venue?: (number | null) | Venue;
+  tags?:
+    | {
+        tag?: string | null;
+        id?: string | null;
+      }[]
+    | null;
   /**
    * Approved events are visible to all users
    */
@@ -244,7 +249,12 @@ export interface Artist {
   name: string;
   description?: string | null;
   location?: string | null;
-  genres?: string | null;
+  tags?:
+    | {
+        tag?: string | null;
+        id?: string | null;
+      }[]
+    | null;
   url?: string | null;
   avatar_url?: string | null;
   approved?: boolean | null;
@@ -329,7 +339,6 @@ export interface PayloadMigration {
  * via the `definition` "users_select".
  */
 export interface UsersSelect<T extends boolean = true> {
-  username?: T;
   name?: T;
   role?: T;
   suspended?: T;
@@ -397,6 +406,12 @@ export interface EventsSelect<T extends boolean = true> {
   endDate?: T;
   location?: T;
   venue?: T;
+  tags?:
+    | T
+    | {
+        tag?: T;
+        id?: T;
+      };
   approved?: T;
   submittedBy?: T;
   updatedAt?: T;
@@ -410,7 +425,12 @@ export interface ArtistsSelect<T extends boolean = true> {
   name?: T;
   description?: T;
   location?: T;
-  genres?: T;
+  tags?:
+    | T
+    | {
+        tag?: T;
+        id?: T;
+      };
   url?: T;
   avatar_url?: T;
   approved?: T;

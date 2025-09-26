@@ -100,6 +100,16 @@ export const Events: CollectionConfig = {
       ],
     },
     {
+      name: 'tags',
+      type: 'array',
+      fields: [
+        {
+          name: 'tag',
+          type: 'text',
+        },
+      ],
+    },
+    {
       name: 'approved',
       type: 'checkbox',
       defaultValue: false,

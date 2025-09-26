@@ -8,18 +8,17 @@ export const isAdminOrModerator = (user: any) =>
 
 export const Users: CollectionConfig = {
   slug: 'users',
+  auth: true,
   labels: {
     singular: 'User',
     plural: 'Users',
   },
   admin: {
     useAsTitle: 'name',
-    defaultColumns: [hasSmtpSet ? 'email' : 'username', 'name', 'role', 'suspended', 'updatedAt'],
+    defaultColumns: ['email', 'name', 'role', 'suspended', 'updatedAt'],
     group: 'Administration',
   },
-  auth: {
-    loginWithUsername: !hasSmtpSet,
-  },
+
   access: {
     admin: ({ req: { user } }) => isAdminOrModerator(user),
     create: ({ req: { user } }) => isAdmin(user),
@@ -32,18 +31,6 @@ export const Users: CollectionConfig = {
       name: 'email',
       type: 'email',
       required: false,
-      admin: {
-        hidden: !hasSmtpSet,
-      },
-    },
-    {
-      name: 'username',
-      type: 'text',
-      required: !hasSmtpSet,
-      admin: {
-        position: 'sidebar',
-        hidden: hasSmtpSet,
-      },
     },
     {
       name: 'name',
