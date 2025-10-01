@@ -1,5 +1,5 @@
 import React from 'react'
-import './styles.css'
+import '../global.css'
 
 export const metadata = {
   description: 'A blank template using Payload in a Next.js app.',
@@ -9,6 +9,7 @@ export const metadata = {
 export default async function RootLayout(props: { children: React.ReactNode }) {
   const { children } = props
 
+  // TODO: make lang variable
   return (
     <html lang="en">
       <body>

@@ -1,0 +1,32 @@
+.main-layout {
+  min-height: 100vh;
+  background-color: var(--color-background-primary);
+}
+
+.layout-content {
+  height: 100vh;
+  color: var(--color-text-primary);
+  max-width: 700px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo-container {
+  width: 650px;
+  margin-top: var(--space-12);
+  margin-bottom: var(--space-4);
+}
+
+.logo-container img {
+  width: 100%;
+  height: 100%;
+}
+
+.main-content {
+  background-color: var(--color-background-secondary);
+  height: 100%;
+  width: 100%;
+}

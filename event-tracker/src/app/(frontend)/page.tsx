@@ -1,26 +1,21 @@
-import { headers as getHeaders } from 'next/headers.js'
-import Image from 'next/image'
-import { getPayload } from 'payload'
 import React from 'react'
-import { fileURLToPath } from 'url'
-
-import config from '@/payload.config'
-import './styles.css'
+import MainLayout from '../../components/MainLayout/MainLayout'
 import EventList from '../../components/EventList'
+import './styles.css'
 
 export default async function HomePage() {
-  const headers = await getHeaders()
-  const payloadConfig = await config
-  const payload = await getPayload({ config: payloadConfig })
-  const { user } = await payload.auth({ headers })
-
-  const fileURL = `vscode://file/${fileURLToPath(import.meta.url)}`
+  // Get current date in Czech format
+  // TODO: make currentdate variable
+  const currentDate = new Date().toLocaleDateString('cs-CZ', {
+    weekday: 'long',
+    day: '2-digit',
+    month: '2-digit',
+    year: 'numeric',
+  })
 
   return (
-    <div className="home">
-      <div className="content">
-        <EventList />
-      </div>
-    </div>
+    <MainLayout activeTab="events" currentDate={currentDate}>
+      <EventList />
+    </MainLayout>
   )
 }

@@ -1,19 +1,5 @@
 @import '../design.css';
 
-/* Main Layout */
-.main-layout {
-  min-height: 100vh;
-  background-color: var(--color-background-primary);
-  color: var(--color-text-primary);
-}
-
-.layout-content {
-  max-width: 52vw;
-  margin: 0 auto;
-  padding: 0 var(--space-8);
-  position: relative;
-}
-
 /* Header Styles */
 .header {
   padding: var(--space-8) 0;
@@ -105,11 +91,6 @@
   transform: translateY(1px);
 }
 
-/* Main Content */
-.main-content {
-  padding: var(--space-8) 0;
-}
-
 /* Event List */
 .event-list {
   display: flex;
@@ -132,7 +113,9 @@
   border-radius: var(--radius-lg);
   overflow: hidden;
   cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 .event-card:hover {
@@ -236,44 +219,34 @@
   gap: var(--space-2);
 }
 
-.footer-logo {
-  /* styles handled by design.css .text-footer-logo */
-  color: var(--color-text-accent);
-}
-
-.footer-domain {
-  /* styles handled by design.css .text-footer */
-  color: var(--color-text-secondary);
-}
-
 /* Responsive Design */
 @media (max-width: 768px) {
   .layout-content {
     padding: 0 var(--space-4);
   }
-  
+
   .header-content {
     flex-direction: column;
     gap: var(--space-4);
     text-align: center;
   }
-  
+
   .navigation {
     justify-content: center;
   }
-  
+
   .event-card-content {
     padding: var(--space-6);
   }
-  
+
   .event-title {
     font-size: var(--font-size-2xl);
   }
-  
+
   .time-text {
     font-size: var(--font-size-2xl);
   }
-  
+
   .footer-links {
     flex-direction: column;
     gap: var(--space-4);
