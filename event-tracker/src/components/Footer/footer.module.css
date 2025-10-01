@@ -1,0 +1,42 @@
+.footer {
+  margin-top: var(--space-12);
+  margin-bottom: var(--space-8);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.footer-decoration {
+  width: 500px;
+  margin-bottom: var(--space-8);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.footer-art {
+  width: 100%;
+  height: auto;
+}
+
+.footer-links {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  margin-bottom: var(--space-8);
+}
+
+.footer-contact {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+}
+
+.footer-badge {
+  width: 100px;
+  height: auto;
+}

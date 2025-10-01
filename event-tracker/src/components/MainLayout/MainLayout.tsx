@@ -24,7 +24,10 @@ const MainLayout: React.FC<MainLayoutProps> = ({
         <div className={styles['logo-container']}>
           <img src="/media/logotype-desktop.png" alt="Logo" />
         </div>
-        <main className={styles['main-content']}>Test</main>
+        <main className={styles['main-content']}>
+          <div>Test</div>
+          <Footer />
+        </main>
       </div>
     </div>
   )
