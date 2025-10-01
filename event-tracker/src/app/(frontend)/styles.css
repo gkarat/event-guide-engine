@@ -1,0 +1,281 @@
+@import '../design.css';
+
+/* Main Layout */
+.main-layout {
+  min-height: 100vh;
+  background-color: var(--color-background-primary);
+  color: var(--color-text-primary);
+}
+
+.layout-content {
+  max-width: 52vw;
+  margin: 0 auto;
+  padding: 0 var(--space-8);
+  position: relative;
+}
+
+/* Header Styles */
+.header {
+  padding: var(--space-8) 0;
+  border-bottom: 1px solid var(--color-border-primary);
+}
+
+.header-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-8);
+}
+
+.logo {
+  flex-shrink: 0;
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.logo-text {
+  margin: 0;
+}
+
+.logo-subtitle {
+  margin: 0;
+  margin-top: var(--space-1);
+}
+
+.navigation {
+  display: flex;
+  gap: var(--space-8);
+  flex: 1;
+  justify-content: center;
+}
+
+.nav-tab {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: var(--space-2) 0;
+  position: relative;
+  transition: color 0.2s ease;
+}
+
+.nav-tab-active {
+  /* styles handled by design.css .text-nav-active */
+  color: var(--color-text-accent);
+}
+
+.nav-tab-active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background-color: var(--color-text-accent);
+}
+
+.nav-tab-inactive {
+  /* styles handled by design.css .text-nav-inactive */
+  color: var(--color-text-secondary);
+}
+
+.nav-tab-inactive:hover {
+  color: var(--color-text-primary);
+}
+
+.date-selector {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex-shrink: 0;
+}
+
+.date-text {
+  /* styles handled by design.css .text-date */
+  color: var(--color-text-primary);
+}
+
+.date-chevron {
+  color: var(--color-text-secondary);
+  transition: transform 0.2s ease;
+}
+
+.date-selector:hover .date-chevron {
+  transform: translateY(1px);
+}
+
+/* Main Content */
+.main-content {
+  padding: var(--space-8) 0;
+}
+
+/* Event List */
+.event-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.no-events {
+  text-align: center;
+  color: var(--color-text-secondary);
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-lg);
+  padding: var(--space-12) 0;
+}
+
+/* Event Card */
+.event-card {
+  position: relative;
+  height: 200px;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.event-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+.event-card-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+}
+
+.event-card-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.event-card-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--color-overlay-image);
+  z-index: 2;
+}
+
+.event-card-content {
+  position: relative;
+  z-index: 3;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-8);
+}
+
+.event-card-info {
+  flex: 1;
+}
+
+.event-title {
+  margin: 0 0 var(--space-2) 0;
+}
+
+.event-venue {
+  margin: 0;
+}
+
+.event-time {
+  flex-shrink: 0;
+}
+
+.time-text {
+  /* styles handled by design.css .text-event-time */
+  color: var(--color-text-secondary);
+}
+
+/* Footer */
+.footer {
+  padding: var(--space-12) 0 var(--space-8) 0;
+  text-align: center;
+}
+
+.footer-decoration {
+  margin-bottom: var(--space-8);
+  display: flex;
+  justify-content: center;
+}
+
+.decoration-line {
+  width: 200px;
+  height: 20px;
+}
+
+.footer-links {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-8);
+  margin-bottom: var(--space-8);
+}
+
+.footer-link {
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.footer-link:hover {
+  color: var(--color-text-accent);
+}
+
+.footer-contact {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+}
+
+.footer-logo {
+  /* styles handled by design.css .text-footer-logo */
+  color: var(--color-text-accent);
+}
+
+.footer-domain {
+  /* styles handled by design.css .text-footer */
+  color: var(--color-text-secondary);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .layout-content {
+    padding: 0 var(--space-4);
+  }
+  
+  .header-content {
+    flex-direction: column;
+    gap: var(--space-4);
+    text-align: center;
+  }
+  
+  .navigation {
+    justify-content: center;
+  }
+  
+  .event-card-content {
+    padding: var(--space-6);
+  }
+  
+  .event-title {
+    font-size: var(--font-size-2xl);
+  }
+  
+  .time-text {
+    font-size: var(--font-size-2xl);
+  }
+  
+  .footer-links {
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+}
