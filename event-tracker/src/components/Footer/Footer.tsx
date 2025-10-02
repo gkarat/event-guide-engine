@@ -2,6 +2,8 @@ import React from 'react'
 import styles from './footer.module.css'
 import Image from 'next/image'
 import { URLS } from '../../constants'
+import Link from 'next/link'
+import FooterBadge from '../Icons/BadgeLogo'
 
 const Footer: React.FC = () => {
   return (
@@ -24,20 +26,14 @@ const Footer: React.FC = () => {
           Poslat zpětnou vazbu
         </a>
       </div>
-
-      {/* Contact Information */}
-      <div className={styles['footer-contact']}>
-        <Image
-          src="/media/logotype-badge.png"
-          alt="aggreg8brno badge"
-          className={styles['footer-badge']}
-          width={100}
-          height={100}
-        />
-        <a href={URLS.WEBSITE} className={`link ${styles['text-footer']}`}>
+      <Link href={URLS.WEBSITE || '/'} className={styles['footer-contact']}>
+        <div className={styles['footer-badge-container']}>
+          <FooterBadge />
+        </div>
+        <span className={`link ${styles['footer-link']}`}>
           {URLS.WEBSITE && URLS.WEBSITE.split('https://')[1]}
-        </a>
-      </div>
+        </span>
+      </Link>
     </footer>
   )
 }

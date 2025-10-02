@@ -6,7 +6,6 @@
 .layout-content {
   color: var(--color-text-primary);
   max-width: 100%;
-  min-height: 100vh;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
@@ -26,12 +25,12 @@
 }
 
 .main-content {
-  min-height: 100vh;
   width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   padding: var(--space-4);
+  min-height: 1000px;
 
   border-radius: var(--radius-lg);
   margin-bottom: var(--space-4);

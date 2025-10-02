@@ -215,16 +215,6 @@
   font-weight: var(--font-weight-bold);
 }
 
-/* Footer Links - Small, secondary text for footer */
-.text-footer {
-  font-family: var(--font-family-primary);
-  font-weight: var(--font-weight-regular);
-  font-size: var(--font-size-xs);
-  line-height: var(--line-height-normal);
-  color: var(--color-text-secondary);
-  letter-spacing: var(--letter-spacing-normal);
-}
-
 /* Body Text - General content text */
 .text-body {
   font-family: var(--font-family-primary);
@@ -253,17 +243,6 @@
   line-height: var(--line-height-normal);
   color: var(--color-text-primary);
   letter-spacing: var(--letter-spacing-normal);
-}
-
-/* Footer logo typography */
-.text-footer-logo {
-  font-family: var(--font-family-primary);
-  font-weight: var(--font-weight-bold);
-  font-size: var(--font-size-sm);
-  line-height: var(--line-height-normal);
-  color: var(--color-text-accent);
-  text-transform: uppercase;
-  letter-spacing: var(--letter-spacing-wide);
 }
 
 /* ===== BACKGROUND UTILITY CLASSES ===== */
