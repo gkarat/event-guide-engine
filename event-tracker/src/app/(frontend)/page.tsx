@@ -1,21 +1,25 @@
-import React from 'react'
-import MainLayout from '../../components/MainLayout/MainLayout'
+import React, { Suspense } from 'react'
 import EventList from '../../components/EventList/EventList'
 import './styles.css'
+import DatePickerClient from '../../components/DatePicker/DatePickerClient'
+import { format } from 'date-fns'
 
-export default async function HomePage() {
-  // Get current date in Czech format
-  // TODO: make currentdate variable
-  /*  const currentDate = new Date().toLocaleDateString('cs-CZ', {
-    weekday: 'long',
-    day: '2-digit',
-    month: '2-digit',
-    year: 'numeric',
-  }) */
+interface EventsPageProps {
+  searchParams: {
+    date?: string
+  }
+}
+
+export default async function EventsPage({ searchParams }: EventsPageProps) {
+  const currentDate = format(new Date(), 'yyyy-MM-dd')
+  const selectedDate = (await searchParams).date || currentDate
 
   return (
-    <MainLayout /* activeTab="events" currentDate={currentDate} */>
-      <EventList />
-    </MainLayout>
+    <div>
+      <DatePickerClient currentDate={currentDate} selectedDate={selectedDate} />
+      <Suspense fallback={<div>Loading...</div>}>
+        <EventList selectedDate={selectedDate} />
+      </Suspense>
+    </div>
   )
 }

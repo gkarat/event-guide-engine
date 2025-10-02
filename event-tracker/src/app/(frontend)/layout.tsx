@@ -1,5 +1,10 @@
 import React from 'react'
 import '../global.css'
+import Link from 'next/link'
+import { URLS } from '@/constants'
+import Footer from '@/components/Footer/Footer'
+import styles from './layout.module.css'
+import Image from 'next/image'
 
 export const metadata = {
   description: 'A blank template using Payload in a Next.js app.',
@@ -13,7 +18,21 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <body>
-        <main>{children}</main>
+        <main>
+          <div className={styles['main-layout']}>
+            <div className={styles['layout-content']}>
+              <div className={styles['logo-container']}>
+                <Link href={URLS.HOME}>
+                  <Image src="/media/logotype-desktop.png" alt="Logo" width={650} height={100} />
+                </Link>
+              </div>
+              <main className={styles['main-content']}>
+                {children}
+                <Footer />
+              </main>
+            </div>
+          </div>
+        </main>
       </body>
     </html>
   )

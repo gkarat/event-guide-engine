@@ -24,9 +24,9 @@ const getBackgroundImageUrl = (event: Event) => {
     : undefined
 }
 
-const EventList = async () => {
-  const todayStart = startOfDay(new Date())
-  const todayEnd = endOfDay(new Date())
+const EventList = async ({ selectedDate }: { selectedDate: string }) => {
+  const dayStart = startOfDay(new Date(selectedDate))
+  const dayEnd = endOfDay(new Date(selectedDate))
 
   const events = await getEvents({
     where: {
@@ -34,8 +34,8 @@ const EventList = async () => {
       approved: { equals: true },
       // Show only events that are today
       startDate: {
-        greater_than_equal: todayStart.toISOString(),
-        less_than_equal: todayEnd.toISOString(),
+        greater_than_equal: dayStart.toISOString(),
+        less_than_equal: dayEnd.toISOString(),
       },
     },
     depth: 1,
