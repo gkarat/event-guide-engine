@@ -1,9 +1,9 @@
-import Image from 'next/image'
 import React from 'react'
 import Footer from '../Footer/Footer'
-import Header from '../Header'
 
 import styles from './main-layout.module.css'
+import Image from 'next/image'
+import Link from 'next/link'
 
 interface MainLayoutProps {
   children: React.ReactNode
@@ -14,18 +14,20 @@ interface MainLayoutProps {
 
 const MainLayout: React.FC<MainLayoutProps> = ({
   children,
-  activeTab = 'events',
-  onTabChange,
-  currentDate,
+  // activeTab = 'events',
+  // onTabChange,
+  // currentDate,
 }) => {
   return (
     <div className={styles['main-layout']}>
       <div className={styles['layout-content']}>
         <div className={styles['logo-container']}>
-          <img src="/media/logotype-desktop.png" alt="Logo" />
+          <Link href="/">
+            <Image src="/media/logotype-desktop.png" alt="Logo" width={650} height={100} />
+          </Link>
         </div>
         <main className={styles['main-content']}>
-          <div>Test</div>
+          {children}
           <Footer />
         </main>
       </div>

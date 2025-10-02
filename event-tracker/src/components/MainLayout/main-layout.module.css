@@ -4,9 +4,9 @@
 }
 
 .layout-content {
-  height: 100vh;
   color: var(--color-text-primary);
   max-width: 100%;
+  min-height: 100vh;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
@@ -26,11 +26,14 @@
 }
 
 .main-content {
-  height: 100%;
+  min-height: 100vh;
   width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  padding: var(--space-4);
+
+  border-radius: var(--radius-lg);
 }
 
 @media (min-width: 768px) {
@@ -40,11 +43,12 @@
 
   .logo-container {
     width: 650px;
-    margin-top: var(--space-12);
+    margin-top: var(--space-16);
     margin-bottom: var(--space-4);
   }
 
   .main-content {
     background-color: var(--color-background-secondary);
+    padding: var(--space-2);
   }
 }

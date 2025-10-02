@@ -100,6 +100,14 @@ export const Events: CollectionConfig = {
       ],
     },
     {
+      name: 'backgroundImage',
+      type: 'upload',
+      relationTo: 'media',
+      admin: {
+        description: 'Background image for the event card',
+      },
+    },
+    {
       name: 'tags',
       type: 'array',
       fields: [

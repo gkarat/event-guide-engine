@@ -77,6 +77,7 @@
   --color-overlay-light: rgba(0, 0, 0, 0.1);
   --color-overlay-medium: rgba(0, 0, 0, 0.3);
   --color-overlay-dark: rgba(0, 0, 0, 0.67);
+  --color-overlay-light: rgba(0, 0, 0, 0.57);
   --color-overlay-image: var(--color-overlay-dark);
 
   /* Component Specific Semantic */
@@ -89,6 +90,12 @@
   --color-primary: var(--color-brand-primary);
   --color-border: var(--color-border-primary);
   --color-image-overlay: var(--color-overlay-image);
+  --color-image-overlay-hover: var(--color-overlay-light);
+}
+
+/* radius system */
+:root {
+  --radius-lg: 16px; /* 16px */
 }
 
 /* typography system */
@@ -130,6 +137,14 @@
   --space-6: 1.5rem; /* 24px */
   --space-8: 2rem; /* 32px */
   --space-12: 3rem; /* 48px */
+  --space-16: 4rem; /* 64px */
+  --space-24: 6rem; /* 96px */
+  --space-32: 8rem; /* 128px */
+  --space-40: 10rem; /* 160px */
+  --space-48: 12rem; /* 192px */
+  --space-56: 14rem; /* 224px */
+  --space-64: 16rem; /* 256px */
+  --space-72: 18rem; /* 288px */
 }
 
 /* typography classes */

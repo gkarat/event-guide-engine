@@ -223,6 +223,10 @@ export interface Event {
    * Select a venue from the list (use this OR enter a custom location in the previous field)
    */
   venue?: (number | null) | Venue;
+  /**
+   * Background image for the event card
+   */
+  backgroundImage?: (number | null) | Media;
   tags?:
     | {
         tag?: string | null;
@@ -406,6 +410,7 @@ export interface EventsSelect<T extends boolean = true> {
   endDate?: T;
   location?: T;
   venue?: T;
+  backgroundImage?: T;
   tags?:
     | T
     | {
