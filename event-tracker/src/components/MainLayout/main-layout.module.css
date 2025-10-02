@@ -34,6 +34,7 @@
   padding: var(--space-4);
 
   border-radius: var(--radius-lg);
+  margin-bottom: var(--space-4);
 }
 
 @media (min-width: 768px) {

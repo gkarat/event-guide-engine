@@ -1,6 +1,7 @@
 import React from 'react'
 import styles from './footer.module.css'
 import Image from 'next/image'
+import { URLS } from '../../constants'
 
 const Footer: React.FC = () => {
   return (
@@ -16,10 +17,10 @@ const Footer: React.FC = () => {
       </div>
       {/* Links */}
       <div className={styles['footer-links']}>
-        <a href="#" className={`link ${styles['text-footer']}`}>
+        <a href={URLS.ADD_EVENT} className={`link ${styles['text-footer']}`}>
           Přidat událost
         </a>
-        <a href="#" className={`link ${styles['text-footer']}`}>
+        <a href={URLS.FEEDBACK} className={`link ${styles['text-footer']}`}>
           Poslat zpětnou vazbu
         </a>
       </div>
@@ -33,8 +34,8 @@ const Footer: React.FC = () => {
           width={100}
           height={100}
         />
-        <a href="#" className={`link ${styles['text-footer']}`}>
-          a8b.cz
+        <a href={URLS.WEBSITE} className={`link ${styles['text-footer']}`}>
+          {URLS.WEBSITE && URLS.WEBSITE.split('https://')[1]}
         </a>
       </div>
     </footer>
