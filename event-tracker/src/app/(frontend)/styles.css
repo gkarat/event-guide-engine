@@ -43,7 +43,7 @@
   cursor: pointer;
   padding: var(--space-2) 0;
   position: relative;
-  transition: color 0.2s ease;
+  transition: color 0.1s ease;
 }
 
 .nav-tab-active {
@@ -84,7 +84,7 @@
 
 .date-chevron {
   color: var(--color-text-secondary);
-  transition: transform 0.2s ease;
+  transition: transform 0.1s ease;
 }
 
 .date-selector:hover .date-chevron {
