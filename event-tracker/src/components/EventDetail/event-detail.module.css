@@ -1,0 +1,79 @@
+.eventDetailHeader {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.eventDetailImage {
+  width: 100%;
+  min-height: 200px;
+  position: relative;
+}
+
+.eventDetailImage img {
+  object-fit: cover;
+  border-radius: var(--radius-lg);
+  border: var(--border-card);
+  box-shadow: var(--box-shadow-card);
+}
+
+.eventDetailInfo {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.eventDetailTitle {
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-light);
+  text-transform: uppercase;
+}
+
+.eventDetailTime {
+  color: var(--color-text-secondary);
+  margin: 0;
+}
+
+.eventDetailArtists {
+  font-size: var(--font-size-base);
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.eventDetailLocation {
+  font-size: var(--font-size-base);
+  color: var(--color-text-primary);
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.eventDetailContent {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.tagsList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  color: var(--color-text-secondary);
+}
+
+@media (min-width: 768px) {
+  .eventDetail {
+    padding: var(--space-4);
+  }
+
+  .eventDetailImage {
+    width: 450px;
+    height: 300px;
+  }
+
+  .eventDetailArtists {
+    gap: 0;
+  }
+}

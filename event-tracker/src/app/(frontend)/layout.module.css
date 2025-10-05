@@ -50,5 +50,8 @@
   .main-content {
     background-color: var(--color-background-secondary);
     padding: var(--space-2);
+
+    border: var(--border-card);
+    box-shadow: var(--box-shadow-card);
   }
 }

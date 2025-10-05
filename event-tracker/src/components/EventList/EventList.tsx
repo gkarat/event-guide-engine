@@ -68,6 +68,7 @@ const EventList = async ({ selectedDate }: { selectedDate: string }) => {
           <li key={eventData.id}>
             <EventCard
               key={eventData.id}
+              id={eventData.id}
               title={eventData.title}
               venue={venueName}
               time={timeString}

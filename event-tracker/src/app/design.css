@@ -148,6 +148,12 @@
   --space-72: 18rem; /* 288px */
 }
 
+/* border system */
+:root {
+  --border-card: 1px solid var(--color-border-primary);
+  --box-shadow-card: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
 /* typography classes */
 /* Event Title - Large, prominent text for event names */
 .text-event-title {

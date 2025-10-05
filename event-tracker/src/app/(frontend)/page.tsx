@@ -5,9 +5,9 @@ import DatePickerClient from '../../components/DatePicker/DatePickerClient'
 import { format } from 'date-fns'
 
 interface EventsPageProps {
-  searchParams: {
+  searchParams: Promise<{
     date?: string
-  }
+  }>
 }
 
 export default async function EventsPage({ searchParams }: EventsPageProps) {

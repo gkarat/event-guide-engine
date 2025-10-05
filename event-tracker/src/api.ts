@@ -98,3 +98,20 @@ export const createArtist = async (params: any = {}) => {
     return null
   }
 }
+
+export const getEvent = async (id: string) => {
+  try {
+    const payload = await getPayload({ config: payloadConfig })
+    const event = await payload.findByID({
+      collection: 'events',
+      id,
+      depth: 2, // Include related data (artists, venue, backgroundImage)
+    })
+
+    return event
+  } catch (error) {
+    console.error('Error fetching event', error)
+
+    return null
+  }
+}
