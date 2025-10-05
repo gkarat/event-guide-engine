@@ -212,7 +212,23 @@ export interface Event {
   id: number;
   title: string;
   description?: string | null;
-  artist?: (number | Artist)[] | null;
+  /**
+   * Add artists either by selecting from the collection or entering custom names
+   */
+  artist?:
+    | {
+        /**
+         * Choose whether to select an artist from the collection or enter a custom name
+         */
+        type: 'relationship' | 'string';
+        relationship?: (number | null) | Artist;
+        /**
+         * Enter a custom artist name
+         */
+        string?: string | null;
+        id?: string | null;
+      }[]
+    | null;
   startDate: string;
   endDate?: string | null;
   /**
@@ -233,6 +249,7 @@ export interface Event {
         id?: string | null;
       }[]
     | null;
+  url?: string | null;
   /**
    * Approved events are visible to all users
    */
@@ -405,7 +422,14 @@ export interface VenuesSelect<T extends boolean = true> {
 export interface EventsSelect<T extends boolean = true> {
   title?: T;
   description?: T;
-  artist?: T;
+  artist?:
+    | T
+    | {
+        type?: T;
+        relationship?: T;
+        string?: T;
+        id?: T;
+      };
   startDate?: T;
   endDate?: T;
   location?: T;
@@ -417,6 +441,7 @@ export interface EventsSelect<T extends boolean = true> {
         tag?: T;
         id?: T;
       };
+  url?: T;
   approved?: T;
   submittedBy?: T;
   updatedAt?: T;

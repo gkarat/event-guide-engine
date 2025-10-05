@@ -24,9 +24,49 @@ export const Events: CollectionConfig = {
     },
     {
       name: 'artist',
-      type: 'relationship',
-      relationTo: 'artists',
-      hasMany: true,
+      type: 'array',
+      fields: [
+        {
+          name: 'type',
+          type: 'select',
+          options: [
+            {
+              label: 'Artist from Collection',
+              value: 'relationship',
+            },
+            {
+              label: 'Custom Artist Name',
+              value: 'string',
+            },
+          ],
+          required: true,
+          admin: {
+            description:
+              'Choose whether to select an artist from the collection or enter a custom name',
+          },
+        },
+        {
+          name: 'relationship',
+          type: 'relationship',
+          relationTo: 'artists',
+          admin: {
+            condition: (data: unknown, siblingData: { type?: string }) =>
+              siblingData?.type === 'relationship',
+          },
+        },
+        {
+          name: 'string',
+          type: 'text',
+          admin: {
+            condition: (data: unknown, siblingData: { type?: string }) =>
+              siblingData?.type === 'string',
+            description: 'Enter a custom artist name',
+          },
+        },
+      ],
+      admin: {
+        description: 'Add artists either by selecting from the collection or entering custom names',
+      },
     },
     {
       name: 'startDate',
@@ -58,7 +98,10 @@ export const Events: CollectionConfig = {
           admin: {
             description: 'Enter a custom location (use this OR select a venue in the next field)',
           },
-          validate: (value: string | null | undefined, { siblingData }: { siblingData: any }) => {
+          validate: (
+            value: string | null | undefined,
+            { siblingData }: { siblingData: Record<string, unknown> },
+          ) => {
             const hasLocation = value && value.trim() !== ''
             const hasVenue = siblingData?.venue
 
@@ -82,8 +125,11 @@ export const Events: CollectionConfig = {
             description:
               'Select a venue from the list (use this OR enter a custom location in the previous field)',
           },
-          validate: (value: any, { siblingData }: { siblingData: any }) => {
-            const hasLocation = siblingData?.location && siblingData.location.trim() !== ''
+          validate: (value: unknown, { siblingData }: { siblingData: Record<string, unknown> }) => {
+            const hasLocation =
+              siblingData?.location &&
+              typeof siblingData.location === 'string' &&
+              siblingData.location.trim() !== ''
             const hasVenue = value
 
             if (!hasLocation && !hasVenue) {
@@ -116,6 +162,10 @@ export const Events: CollectionConfig = {
           type: 'text',
         },
       ],
+    },
+    {
+      name: 'url',
+      type: 'text',
     },
     {
       name: 'approved',
