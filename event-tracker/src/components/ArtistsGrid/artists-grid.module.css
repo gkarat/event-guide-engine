@@ -13,6 +13,16 @@
   position: relative;
 }
 
+.artistCard:hover .artistName {
+  color: var(--color-text-accent);
+  transition: color 0.1s ease;
+}
+
+.artistCard:hover .artistAvatarOverlay {
+  background-color: var(--color-overlay-primary-light);
+  transition: background-color 0.1s ease;
+}
+
 .artistAvatarContainer {
   border: var(--border-card);
   box-shadow: var(--box-shadow-card);
@@ -40,4 +50,16 @@
 
 .artistName {
   text-align: center;
+}
+
+@media (min-width: 768px) {
+  .artistsGrid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .artistsGrid {
+    grid-template-columns: repeat(5, 1fr);
+  }
 }
