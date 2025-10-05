@@ -277,7 +277,14 @@ export interface Artist {
       }[]
     | null;
   url?: string | null;
-  avatar_url?: string | null;
+  avatar: {
+    type: 'url' | 'media';
+    url?: string | null;
+    /**
+     * Select an uploaded image
+     */
+    media?: (number | null) | Media;
+  };
   approved?: boolean | null;
   /**
    * Automatically set to the user who created this artist
@@ -462,7 +469,13 @@ export interface ArtistsSelect<T extends boolean = true> {
         id?: T;
       };
   url?: T;
-  avatar_url?: T;
+  avatar?:
+    | T
+    | {
+        type?: T;
+        url?: T;
+        media?: T;
+      };
   approved?: T;
   submittedBy?: T;
   updatedAt?: T;

@@ -40,8 +40,42 @@ export const Artists: CollectionConfig = {
       type: 'text',
     },
     {
-      name: 'avatar_url',
-      type: 'text',
+      name: 'avatar',
+      type: 'group',
+      fields: [
+        {
+          name: 'type',
+          type: 'radio',
+          options: [
+            { label: 'URL', value: 'url' },
+            { label: 'Media Upload', value: 'media' },
+          ],
+          defaultValue: 'url',
+          required: true,
+        },
+        {
+          name: 'url',
+          type: 'text',
+          admin: {
+            condition: (data, siblingData) => siblingData?.type === 'url',
+          },
+        },
+        {
+          name: 'media',
+          type: 'relationship',
+          relationTo: 'media',
+          hasMany: false,
+          admin: {
+            condition: (data, siblingData) => siblingData?.type === 'media',
+            description: 'Select an uploaded image',
+          },
+          filterOptions: {
+            type: {
+              equals: 'image',
+            },
+          },
+        },
+      ],
     },
     {
       name: 'approved',

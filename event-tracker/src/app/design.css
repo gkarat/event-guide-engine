@@ -80,6 +80,10 @@
   --color-overlay-light: rgba(0, 0, 0, 0.57);
   --color-overlay-image: var(--color-overlay-dark);
 
+  --color-overlay-primary-light: color-mix(in srgb, var(--color-brand-primary) 10%, transparent);
+  --color-overlay-primary-medium: color-mix(in srgb, var(--color-brand-primary) 30%, transparent);
+  --color-overlay-primary-bold: color-mix(in srgb, var(--color-brand-primary) 67%, transparent);
+
   /* Component Specific Semantic */
   --color-background-date-picker: color-mix(in srgb, var(--color-brand-primary) 5%, transparent);
   --color-text-date-picker-title: var(--color-brand-primary);
@@ -152,6 +156,8 @@
 :root {
   --border-card: 1px solid var(--color-border-primary);
   --box-shadow-card: 0 2px 8px rgba(0, 0, 0, 0.15);
+
+  --border-card-hover: 1px solid var(--color-border-focus);
 }
 
 /* typography classes */

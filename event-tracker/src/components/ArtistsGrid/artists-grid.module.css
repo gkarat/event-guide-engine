@@ -1,0 +1,43 @@
+.artistsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  row-gap: var(--space-4);
+  column-gap: var(--space-2);
+}
+
+.artistCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  position: relative;
+}
+
+.artistAvatarContainer {
+  border: var(--border-card);
+  box-shadow: var(--box-shadow-card);
+  border-radius: var(--radius-lg);
+  height: 200px;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.artistAvatar {
+  object-fit: cover;
+}
+
+.artistAvatarOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  transition: background-color 0.1s ease;
+
+  z-index: 2;
+}
+
+.artistName {
+  text-align: center;
+}
