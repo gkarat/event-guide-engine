@@ -16,8 +16,8 @@ export default async function EventsPage({ searchParams }: EventsPageProps) {
 
   return (
     <div>
-      <DatePickerClient currentDate={currentDate} selectedDate={selectedDate} />
       <Suspense fallback={<div>Loading...</div>}>
+        <DatePickerClient currentDate={currentDate} selectedDate={selectedDate} />
         <EventList selectedDate={selectedDate} />
       </Suspense>
     </div>

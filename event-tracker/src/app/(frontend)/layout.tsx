@@ -5,13 +5,14 @@ import { URLS } from '@/constants'
 import Footer from '@/components/Footer/Footer'
 import styles from './layout.module.css'
 import Image from 'next/image'
+import TabsSwitchClient from '@/components/TabsSwitch/TabsSwitchClient'
 
 export const metadata = {
   description: 'A blank template using Payload in a Next.js app.',
   title: 'Payload Blank Template',
 }
 
-export default async function RootLayout(props: { children: React.ReactNode }) {
+export default function RootLayout(props: { children: React.ReactNode }) {
   const { children } = props
 
   // TODO: make lang variable
@@ -26,6 +27,7 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
                   <Image src="/media/logotype-desktop.png" alt="Logo" width={650} height={100} />
                 </Link>
               </div>
+              <TabsSwitchClient />
               <main className={styles['main-content']}>
                 {children}
                 <Footer />
