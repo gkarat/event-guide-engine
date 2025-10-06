@@ -12,7 +12,7 @@ export const WEBSITE_URL = process.env.NEXT_PUBLIC_WEBSITE_URL
 export const URLS = {
   // External website URLs
   WEBSITE: WEBSITE_URL,
-  ADD_EVENT: '#', // TODO: Update when event submission is implemented
+  ADD_EVENT: '/events/add',
   FEEDBACK: '#', // TODO: Update when feedback functionality is implemented
 
   // Internal application routes

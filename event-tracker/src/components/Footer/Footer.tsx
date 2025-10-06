@@ -19,9 +19,9 @@ const Footer: React.FC = () => {
       </div>
       {/* Links */}
       <div className={styles['footer-links']}>
-        <a href={URLS.ADD_EVENT} className={`link ${styles['text-footer']}`}>
+        <Link href={URLS.ADD_EVENT} className={`link ${styles['text-footer']}`}>
           Přidat událost
-        </a>
+        </Link>
         <a href={URLS.FEEDBACK} className={`link ${styles['text-footer']}`}>
           Poslat zpětnou vazbu
         </a>
