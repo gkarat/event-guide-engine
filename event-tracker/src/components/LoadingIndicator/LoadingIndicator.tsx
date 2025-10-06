@@ -28,7 +28,7 @@ export interface LoadingIndicatorProps {
 const LoadingIndicator: React.FC<LoadingIndicatorProps> = ({
   size = 'medium',
   message = 'Loading',
-  overlay = false,
+  overlay = true,
   className = '',
 }) => {
   const containerClasses = [styles.container, overlay && styles.overlay, className]
