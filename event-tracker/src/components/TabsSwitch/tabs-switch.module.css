@@ -42,7 +42,7 @@
   font-size: var(--font-size-sm);
 }
 
-.tabsSwitchButton:hover {
+.tabsSwitchButton:hover:not(.tabsSwitchButtonActive) {
   border-bottom: color-mix(in srgb, var(--color-brand-primary) 10%, transparent) solid 2px;
 }
 
