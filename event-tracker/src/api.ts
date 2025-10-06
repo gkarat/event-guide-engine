@@ -115,3 +115,20 @@ export const getEvent = async (id: string) => {
     return null
   }
 }
+
+export const getArtist = async (id: string) => {
+  try {
+    const payload = await getPayload({ config: payloadConfig })
+    const artist = await payload.findByID({
+      collection: 'artists',
+      id,
+      depth: 2, // Include related data (avatar media)
+    })
+
+    return artist
+  } catch (error) {
+    console.error('Error fetching artist', error)
+
+    return null
+  }
+}

@@ -1,0 +1,92 @@
+.artistDetail {
+  margin-top: var(--space-4);
+  padding: var(--space-4);
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+  gap: var(--space-8);
+}
+
+.artistDetailImage {
+  position: relative;
+  width: 50%;
+  min-height: 300px;
+}
+
+.artistDetailImage img {
+  object-fit: cover;
+  border-radius: var(--radius-lg);
+  border: var(--border-card);
+  box-shadow: var(--box-shadow-card);
+}
+
+.artistDetailInfo {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.artistDetailTitle {
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-light);
+  text-transform: uppercase;
+}
+
+.artistDetailLocation {
+  font-size: var(--font-size-base);
+  color: var(--color-text-primary);
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.artistDetailContent {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  width: 50%;
+}
+
+.tagsList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  color: var(--color-text-secondary);
+}
+
+@media (max-width: 768px) {
+  .artistDetail {
+    flex-direction: column;
+    gap: var(--space-4);
+    margin-top: 0;
+    padding: 0;
+  }
+
+  .artistDetailImage {
+    width: 100%;
+    height: 300px;
+  }
+
+  .artistDetailContent {
+    width: 100%;
+  }
+
+  .artistDetailTitle {
+    font-size: var(--font-size-2xl);
+  }
+
+  .artistDetailLocation {
+    font-size: var(--font-size-base);
+  }
+
+  .artistDetailDescription {
+    font-size: var(--font-size-base);
+  }
+
+  .artistDetailTags {
+    font-size: var(--font-size-base);
+  }
+
+  .artistDetailUrl {
+    font-size: var(--font-size-base);
+  }
+}
