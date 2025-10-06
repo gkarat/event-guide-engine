@@ -478,3 +478,15 @@
 .font-primary {
   font-family: var(--font-family-primary), 'Arial Narrow', 'Liberation Sans Narrow', sans-serif;
 }
+
+:root {
+  --top-panel-height: 2.25rem;
+  --top-panel-end-margin: var(--space-4);
+  --top-panel-border: 1px solid var(--color-border-primary);
+  --top-panel-border-bottom: none;
+  --top-panel-box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  --top-panel-border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  --top-panel-item-padding: var(--space-2) var(--space-8);
+  --top-panel-item-font-weight: var(--font-weight-bold);
+  --top-panel-item-active-color: var(--color-brand-primary);
+}

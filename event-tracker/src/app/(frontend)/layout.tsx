@@ -5,7 +5,7 @@ import { URLS } from '@/constants'
 import Footer from '@/components/Footer/Footer'
 import styles from './layout.module.css'
 import Image from 'next/image'
-import TabsSwitchClient from '@/components/TabsSwitch/TabsSwitchClient'
+import TopPanel from '@/components/TopPanel/TopPanel'
 
 export const metadata = {
   description: 'A blank template using Payload in a Next.js app.',
@@ -27,7 +27,7 @@ export default function RootLayout(props: { children: React.ReactNode }) {
                   <Image src="/media/logotype-desktop.png" alt="Logo" width={650} height={100} />
                 </Link>
               </div>
-              <TabsSwitchClient />
+              <TopPanel />
               <main className={styles['main-content']}>
                 {children}
                 <Footer />

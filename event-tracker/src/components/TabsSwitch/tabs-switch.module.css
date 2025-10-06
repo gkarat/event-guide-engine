@@ -1,28 +1,39 @@
 .tabsSwitch {
   display: flex;
-  gap: var(--space-2);
-
   width: fit-content;
-  margin-left: var(--space-6);
+  margin-left: var(--top-panel-end-margin);
+  border: var(--top-panel-border);
+  border-bottom: var(--top-panel-border-bottom);
+  box-shadow: var(--top-panel-box-shadow);
+  border-radius: var(--top-panel-border-radius);
 }
 
 .tabsSwitchButton {
-  background: none;
-  border: none;
+  background: var(--color-background-secondary);
+  border: var(--top-panel-border-bottom);
   cursor: pointer;
   width: fit-content;
-  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
-  padding: var(--space-2) var(--space-4);
-  font-weight: var(--font-weight-bold);
+  padding: var(--top-panel-item-padding);
+  font-weight: var(--top-panel-item-font-weight);
   border-bottom: transparent solid 2px;
+  font-family: var(--font-family-primary);
+}
+
+.firstTab {
+  border-radius: var(--radius-lg) 0 0 0;
+}
+
+.lastTab {
+  border-radius: 0 var(--radius-lg) 0 0;
 }
 
 .tabsSwitchButtonActive {
-  border-bottom: var(--color-brand-primary) solid 2px;
+  border-bottom: var(--color-brand-primary) solid 1px;
+  background: var(--color-background-primary);
 }
 
 .tabsSwitchButtonActive span {
-  color: var(--color-brand-primary);
+  color: var(--top-panel-item-active-color);
 }
 
 .tabsSwitchButtonText {
@@ -31,5 +42,5 @@
 }
 
 .tabsSwitchButton:hover span {
-  color: var(--color-brand-primary);
+  color: var(--top-panel-item-active-color);
 }

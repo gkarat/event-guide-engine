@@ -12,16 +12,16 @@ const TabsSwitchClient = () => {
   return (
     <div className={styles.tabsSwitch}>
       <button
-        className={`${styles.tabsSwitchButton} ${activeTab === 'events' ? styles.tabsSwitchButtonActive : ''} firstTab`}
+        className={`${styles.tabsSwitchButton} ${activeTab === 'events' ? styles.tabsSwitchButtonActive : ''} ${styles.firstTab}`}
         onClick={() => router.push('/')}
       >
-        <span className={styles.tabsSwitchButtonText}>Events</span>
+        <span className={styles.tabsSwitchButtonText}>Události</span>
       </button>
       <button
-        className={`${styles.tabsSwitchButton} ${activeTab === 'artists' ? styles.tabsSwitchButtonActive : ''} lastTab`}
+        className={`${styles.tabsSwitchButton} ${activeTab === 'artists' ? styles.tabsSwitchButtonActive : ''} ${styles.lastTab}`}
         onClick={() => router.push('/artists')}
       >
-        <span className={styles.tabsSwitchButtonText}>Artists</span>
+        <span className={styles.tabsSwitchButtonText}>Umělci</span>
       </button>
     </div>
   )
