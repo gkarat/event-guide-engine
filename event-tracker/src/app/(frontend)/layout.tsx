@@ -32,10 +32,10 @@ export default function RootLayout(props: { children: React.ReactNode }) {
                 <MenuMobile />
               </div>
               <TopPanel />
-              <main className={styles['main-content']}>
-                {children}
+              <div className={styles['content']}>
+                <main className={styles['main-content']}>{children}</main>
                 <Footer />
-              </main>
+              </div>
             </div>
           </div>
         </div>
