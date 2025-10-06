@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { Suspense } from 'react'
 import { notFound } from 'next/navigation'
 import ArtistDetail from '@/components/ArtistDetail/ArtistDetail'
 import { getArtist } from '@/api'
+import LoadingIndicator from '@/components/LoadingIndicator/LoadingIndicator'
 
 interface ArtistPageProps {
   params: Promise<{
@@ -17,7 +18,11 @@ const ArtistPage: React.FC<ArtistPageProps> = async ({ params }) => {
     notFound()
   }
 
-  return <ArtistDetail artist={artist} />
+  return (
+    <Suspense fallback={<LoadingIndicator />}>
+      <ArtistDetail artist={artist} />
+    </Suspense>
+  )
 }
 
 export default ArtistPage

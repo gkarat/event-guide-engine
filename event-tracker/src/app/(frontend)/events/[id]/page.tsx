@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { Suspense } from 'react'
 import { notFound } from 'next/navigation'
 import EventDetail from '@/components/EventDetail/EventDetail'
 import { getEvent } from '@/api'
+import LoadingIndicator from '@/components/LoadingIndicator/LoadingIndicator'
 
 interface EventPageProps {
   params: Promise<{
@@ -17,7 +18,11 @@ const EventPage: React.FC<EventPageProps> = async ({ params }) => {
     notFound()
   }
 
-  return <EventDetail event={event} />
+  return (
+    <Suspense fallback={<LoadingIndicator />}>
+      <EventDetail event={event} />
+    </Suspense>
+  )
 }
 
 export default EventPage

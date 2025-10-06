@@ -1,0 +1,89 @@
+.container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-12);
+}
+
+.overlay {
+  position: fixed;
+  background: color-mix(in srgb, var(--color-background, #000) 50%, transparent);
+  backdrop-filter: blur(2px);
+  z-index: 9999;
+}
+
+/* ============================================
+   PULSE ANIMATION
+   ============================================ */
+.pulse {
+  border-radius: 50%;
+  background: var(--color-brand-primary);
+  box-shadow: 0 0 0 0 color-mix(in srgb, var(--color-brand-primary) 40%, transparent);
+  transform: scale(1);
+  animation: pulse 1.2s ease-in-out infinite;
+  will-change: transform, box-shadow;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--color-brand-primary) 45%, transparent);
+  }
+  70% {
+    transform: scale(1.35);
+    box-shadow: 0 0 0 12px color-mix(in srgb, var(--color-brand-primary) 0%, transparent);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--color-brand-primary) 0%, transparent);
+  }
+}
+
+/* ============================================
+   SIZE VARIANTS
+   ============================================ */
+.size-small {
+  width: 16px;
+  height: 16px;
+}
+
+.size-medium {
+  width: 24px;
+  height: 24px;
+}
+
+.size-large {
+  width: 40px;
+  height: 40px;
+}
+
+/* ============================================
+   ACCESSIBILITY: REDUCED MOTION
+   ============================================ */
+@media (prefers-reduced-motion: reduce) {
+  .pulse {
+    animation: none;
+    will-change: auto;
+    opacity: 0.6;
+  }
+}
+
+/* ============================================
+   SCREEN READER ONLY TEXT
+   ============================================ */
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}

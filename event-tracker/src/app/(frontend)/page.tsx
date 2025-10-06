@@ -3,6 +3,7 @@ import EventList from '../../components/EventList/EventList'
 import './styles.css'
 import DatePickerClient from '../../components/DatePicker/DatePickerClient'
 import { format } from 'date-fns'
+import LoadingIndicator from '@/components/LoadingIndicator/LoadingIndicator'
 
 interface EventsPageProps {
   searchParams: Promise<{
@@ -16,7 +17,7 @@ export default async function EventsPage({ searchParams }: EventsPageProps) {
 
   return (
     <div>
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<LoadingIndicator />}>
         <DatePickerClient currentDate={currentDate} selectedDate={selectedDate} />
         <EventList selectedDate={selectedDate} />
       </Suspense>
