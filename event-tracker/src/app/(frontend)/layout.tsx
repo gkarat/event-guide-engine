@@ -6,6 +6,7 @@ import Footer from '@/components/Footer/Footer'
 import styles from './layout.module.css'
 import Image from 'next/image'
 import TopPanel from '@/components/TopPanel/TopPanel'
+import MenuMobile from '@/components/MenuMobile/MenuMobile'
 
 export const metadata = {
   description: 'A blank template using Payload in a Next.js app.',
@@ -19,13 +20,16 @@ export default function RootLayout(props: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <body>
-        <main>
+        <div>
           <div className={styles['main-layout']}>
             <div className={styles['layout-content']}>
-              <div className={styles['logo-container']}>
-                <Link href={URLS.HOME}>
-                  <Image src="/media/logotype-desktop.png" alt="Logo" width={650} height={100} />
-                </Link>
+              <div className={styles['header-container']}>
+                <div className={styles['logo-container']}>
+                  <Link href={URLS.HOME}>
+                    <Image src="/media/logotype-desktop.png" alt="Logo" width={650} height={100} />
+                  </Link>
+                </div>
+                <MenuMobile />
               </div>
               <TopPanel />
               <main className={styles['main-content']}>
@@ -34,7 +38,7 @@ export default function RootLayout(props: { children: React.ReactNode }) {
               </main>
             </div>
           </div>
-        </main>
+        </div>
       </body>
     </html>
   )

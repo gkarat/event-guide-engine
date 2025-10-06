@@ -12,12 +12,13 @@
   justify-content: center;
 }
 
+.header-container {
+  position: relative;
+}
+
 .logo-container {
   width: 250px;
-  margin-top: var(--space-4);
-  margin-bottom: var(--space-4);
-  margin-left: auto;
-  margin-right: auto;
+  margin: var(--space-4) auto;
 }
 
 .logo-container img {
@@ -43,8 +44,7 @@
 
   .logo-container {
     width: 650px;
-    margin-top: var(--space-16);
-    margin-bottom: var(--space-4);
+    margin: var(--space-16) auto var(--space-4);
   }
 
   .main-content {

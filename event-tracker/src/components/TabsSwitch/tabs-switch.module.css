@@ -10,13 +10,14 @@
 
 .tabsSwitchButton {
   background: var(--color-background-secondary);
-  border: var(--top-panel-border-bottom);
   cursor: pointer;
   width: fit-content;
   padding: var(--top-panel-item-padding);
   font-weight: var(--top-panel-item-font-weight);
-  border-bottom: transparent solid 2px;
   font-family: var(--font-family-primary);
+  border: none;
+  border-bottom: transparent solid 2px;
+  transition: border-bottom 0.3s ease;
 }
 
 .firstTab {
@@ -28,7 +29,7 @@
 }
 
 .tabsSwitchButtonActive {
-  border-bottom: var(--color-brand-primary) solid 1px;
+  border-bottom: var(--color-brand-primary) solid 2px;
   background: var(--color-background-primary);
 }
 
@@ -41,6 +42,16 @@
   font-size: var(--font-size-sm);
 }
 
+.tabsSwitchButton:hover {
+  border-bottom: color-mix(in srgb, var(--color-brand-primary) 10%, transparent) solid 2px;
+}
+
 .tabsSwitchButton:hover span {
   color: var(--top-panel-item-active-color);
+}
+
+@media (max-width: 768px) {
+  .tabsSwitch {
+    display: none;
+  }
 }

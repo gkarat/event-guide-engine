@@ -1,7 +1,7 @@
 .date-picker {
   position: sticky;
   top: var(--space-4);
-  z-index: 1000;
+  z-index: 500;
   background-color: var(--color-background-secondary);
   padding: var(--space-2) var(--space-4);
   border-radius: var(--radius-lg);
@@ -13,30 +13,41 @@
   justify-content: center;
   cursor: pointer;
   user-select: none;
-  min-height: 24px;
+  height: var(--top-panel-height);
   width: fit-content;
   margin: 0 auto var(--space-2) auto;
+  transition:
+    box-shadow 0.3s ease,
+    transform 0.1s ease,
+    outline 0.2s ease;
+}
+
+.date-picker-focused {
+  outline-offset: 2px;
+}
+
+.date-picker:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.date-picker:active {
+  transform: scale(0.98);
 }
 
 .dateInput {
   position: absolute;
-  opacity: 0;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
+  opacity: 0;
   cursor: pointer;
-  z-index: 2;
-}
-
-.dateInput:focus + .date-display {
-  outline: none;
 }
 
 .date-display {
   display: flex;
   align-items: center;
   gap: var(--space-2);
-  pointer-events: none;
-  z-index: 1;
 }
 
 .date-text {
@@ -49,5 +60,4 @@
 .chevron-container {
   display: flex;
   align-items: center;
-  margin-left: auto;
 }

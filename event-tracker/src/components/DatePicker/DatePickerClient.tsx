@@ -1,5 +1,5 @@
 'use client'
-import React from 'react'
+import React, { useState } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import styles from './date-picker.module.css'
 import { format } from 'date-fns'
@@ -14,6 +14,7 @@ const DatePickerClient = ({
 }) => {
   const router = useRouter()
   const searchParams = useSearchParams()
+  const [isFocused, setIsFocused] = useState(false)
 
   const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault()
@@ -29,13 +30,27 @@ const DatePickerClient = ({
 
   const isToday = currentDate === selectedDate
 
+  const inputRef = React.useRef<HTMLInputElement>(null)
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault()
+      inputRef.current?.showPicker()
+    }
+  }
+
   return (
-    <div className={styles['date-picker']}>
+    <div className={`${styles['date-picker']} ${isFocused ? styles['date-picker-focused'] : ''}`}>
       <input
+        ref={inputRef}
         type="date"
         value={selectedDate}
         onChange={handleDateChange}
+        onFocus={() => setIsFocused(true)}
+        onBlur={() => setIsFocused(false)}
+        onKeyDown={handleKeyDown}
         className={styles.dateInput}
+        aria-label={`Select date, current: ${formatDisplayDate(selectedDate)}`}
       />
       <div className={styles['date-display']}>
         <span className={styles['date-text']}>
