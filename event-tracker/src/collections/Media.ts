@@ -20,11 +20,6 @@ export const Media: CollectionConfig = {
       type: 'text',
       required: true,
     },
-    /*     {
-      name: 'url',
-      type: 'text',
-      required: true,
-    }, */
     {
       name: 'type',
       type: 'radio',
@@ -36,42 +31,18 @@ export const Media: CollectionConfig = {
       type: 'relationship',
       relationTo: 'venues',
       hasMany: true,
-      admin: {
-        description: 'Only approved venues can be selected',
-      },
-      filterOptions: {
-        approved: {
-          equals: true,
-        },
-      },
     },
     {
       name: 'event',
       type: 'relationship',
       relationTo: 'events',
       hasMany: true,
-      admin: {
-        description: 'Only approved events can be selected',
-      },
-      filterOptions: {
-        approved: {
-          equals: true,
-        },
-      },
     },
     {
       name: 'artist',
       type: 'relationship',
       relationTo: 'artists',
       hasMany: true,
-      admin: {
-        description: 'Only approved artists can be selected',
-      },
-      filterOptions: {
-        approved: {
-          equals: true,
-        },
-      },
     },
     {
       name: 'submittedBy',
@@ -84,7 +55,9 @@ export const Media: CollectionConfig = {
       },
     },
   ],
-  upload: true,
+  upload: {
+    mimeTypes: ['image/*', 'video/*'],
+  },
   hooks: {
     beforeChange: [
       ({ req, data, operation }) => {

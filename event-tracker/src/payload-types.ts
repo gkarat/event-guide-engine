@@ -160,17 +160,8 @@ export interface Media {
   id: number;
   alt: string;
   type: 'image' | 'video';
-  /**
-   * Only approved venues can be selected
-   */
   venue?: (number | Venue)[] | null;
-  /**
-   * Only approved events can be selected
-   */
   event?: (number | Event)[] | null;
-  /**
-   * Only approved artists can be selected
-   */
   artist?: (number | Artist)[] | null;
   /**
    * Automatically set to the user who created this media
