@@ -2,9 +2,22 @@
 
 import payloadConfig from '@/payload.config'
 import { getPayload } from 'payload'
-import { Media } from '@/payload-types'
+import { Event, Media } from '@/payload-types'
+import type { Where, Sort, SelectType } from 'payload'
+import type { Config } from '@/payload-types'
 
-export const getEvents = async (params: Record<string, unknown> = {}) => {
+type QueryParams = {
+  where?: Where
+  limit?: number
+  page?: number
+  sort?: Sort
+  depth?: number
+  locale?: Config['locale'] | 'all'
+  select?: SelectType
+  pagination?: boolean
+}
+
+export const getEvents = async (params: QueryParams = {}) => {
   try {
     const payload = await getPayload({ config: payloadConfig })
     const events = await payload.find({
@@ -20,7 +33,7 @@ export const getEvents = async (params: Record<string, unknown> = {}) => {
   }
 }
 
-export const getVenues = async (params: Record<string, unknown> = {}) => {
+export const getVenues = async (params: QueryParams = {}) => {
   try {
     const payload = await getPayload({ config: payloadConfig })
     const venues = await payload.find({
@@ -36,7 +49,7 @@ export const getVenues = async (params: Record<string, unknown> = {}) => {
   }
 }
 
-export const getArtists = async (params: Record<string, unknown> = {}) => {
+export const getArtists = async (params: QueryParams = {}) => {
   try {
     const payload = await getPayload({ config: payloadConfig })
     const artists = await payload.find({
@@ -108,7 +121,7 @@ export const uploadMedia = async (form: FormData) => {
   return media
 }
 
-export const createEvent = async (data: any) => {
+export const createEvent = async (data: Omit<Event, 'id' | 'updatedAt' | 'createdAt'>) => {
   const payload = await getPayload({ config: payloadConfig })
   const event = await payload.create({
     collection: 'events',

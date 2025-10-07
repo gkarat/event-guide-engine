@@ -90,6 +90,75 @@
   --color-text-tab-default: var(--color-gray-300);
   --color-text-tab-active: var(--color-brand-primary);
 
+  /* Form Component Tokens */
+  --color-form-input-bg: var(--color-background-tertiary);
+  --color-form-input-border: var(--color-border-primary);
+  --color-form-input-border-focus: var(--color-border-focus);
+  --color-form-input-text: var(--color-text-primary);
+  --color-form-input-placeholder: var(--color-text-disabled);
+  --color-form-label: var(--color-text-primary);
+  --color-form-helper-text: var(--color-text-secondary);
+  --color-form-required: var(--color-state-error);
+  --color-form-description-border: var(--color-brand-primary);
+  --color-form-description-text: var(--color-text-secondary);
+
+  /* Form Focus States */
+  --color-form-focus-shadow: 0 0 0 3px
+    color-mix(in srgb, var(--color-brand-primary) 20%, transparent);
+
+  /* Form Button Tokens */
+  --color-form-button-add-bg: transparent;
+  --color-form-button-add-bg-hover: color-mix(in srgb, var(--color-brand-primary) 5%, transparent);
+  --color-form-button-add-text: var(--color-text-secondary);
+  --color-form-button-add-text-hover: var(--color-text-primary);
+  --color-form-button-add-border: var(--color-border-primary);
+  --color-form-button-add-border-hover: var(--color-brand-primary);
+
+  --color-form-button-remove-bg: transparent;
+  --color-form-button-remove-bg-hover: color-mix(
+    in srgb,
+    var(--color-state-error) 10%,
+    transparent
+  );
+  --color-form-button-remove-text: var(--color-text-secondary);
+  --color-form-button-remove-text-hover: var(--color-state-error);
+  --color-form-button-remove-border: var(--color-border-primary);
+  --color-form-button-remove-border-hover: var(--color-state-error);
+
+  --color-form-button-submit-bg: var(--color-brand-primary);
+  --color-form-button-submit-bg-hover: var(--color-brand-primary-hover);
+  --color-form-button-submit-bg-disabled: var(--color-text-disabled);
+  --color-form-button-submit-text: var(--color-text-inverse);
+
+  --color-form-button-file-bg: var(--color-background-tertiary);
+  --color-form-button-file-bg-hover: var(--color-background-elevated);
+  --color-form-button-file-border: var(--color-border-primary);
+  --color-form-button-file-border-hover: var(--color-brand-primary);
+  --color-form-button-file-text: var(--color-text-primary);
+
+  /* Form Message Tokens */
+  --color-form-success-bg: color-mix(in srgb, var(--color-state-success) 20%, transparent);
+  --color-form-success-border: var(--color-state-success);
+  --color-form-success-text: var(--color-state-success);
+
+  --color-form-error-bg: color-mix(in srgb, var(--color-state-error) 10%, transparent);
+  --color-form-error-border: color-mix(in srgb, var(--color-state-error) 50%, transparent);
+  --color-form-error-text: var(--color-state-error);
+
+  /* Dropdown/Search Component Tokens */
+  --color-dropdown-bg: var(--color-background-secondary);
+  --color-dropdown-border: var(--color-border-primary);
+  --color-dropdown-shadow: var(--box-shadow-card);
+
+  --color-dropdown-item-bg: transparent;
+  --color-dropdown-item-bg-hover: transparent;
+  --color-dropdown-item-border: var(--color-border-primary);
+  --color-dropdown-item-border-hover: var(--color-border-focus);
+
+  --color-dropdown-item-title: var(--color-text-secondary);
+  --color-dropdown-item-subtitle: var(--color-text-secondary);
+  --color-dropdown-no-results: var(--color-text-disabled);
+
   /* Legacy Support (deprecated - use semantic tokens above) */
   --color-primary: var(--color-brand-primary);
   --color-border: var(--color-border-primary);
@@ -159,6 +228,35 @@
   --box-shadow-card: 0 2px 8px rgba(0, 0, 0, 0.15);
 
   --border-card-hover: 1px solid var(--color-border-focus);
+}
+
+/* Component Size Tokens */
+:root {
+  /* Form Component Sizes */
+  --size-form-textarea-min-height: 100px;
+  --size-form-input-file-width: 50%;
+  --size-form-description-width: 66%;
+  --size-form-description-border-width: 3px;
+
+  /* Dropdown Component Sizes */
+  --size-dropdown-max-height: 200px;
+  --size-dropdown-max-height-mobile: 150px;
+  --size-dropdown-z-index: 1000;
+
+  /* Mobile breakpoint for responsive adjustments */
+  --breakpoint-mobile: 768px;
+}
+
+/* Component Transition Tokens */
+:root {
+  --transition-form-input: border-color 0.1s ease, box-shadow 0.1s ease;
+  --transition-form-button: background-color 0.2s ease, transform 0.1s ease;
+  --transition-form-button-remove:
+    border-color 0.1s ease, color 0.1s ease, background-color 0.1s ease;
+  --transition-form-button-add: border-color 0.1s ease, background-color 0.1s ease, color 0.1s ease;
+  --transition-form-button-file: border-color 0.2s ease, background-color 0.2s ease;
+
+  --transition-dropdown-item: background-color 0.15s ease-in-out;
 }
 
 /* typography classes */

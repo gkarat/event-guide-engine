@@ -57,7 +57,19 @@ export const Venues: CollectionConfig = {
   access: {
     create: ({ req: { user } }) => isAdminOrModerator(user),
     delete: ({ req: { user } }) => isAdminOrModerator(user),
-    read: ({ req: { user } }) => isAdminOrModerator(user),
+    read: ({ req: { user } }) => {
+      // Allow public read access to approved venues for search functionality
+      // Admin/moderator users can read all venues
+      if (isAdminOrModerator(user)) {
+        return true
+      }
+      // Regular users can only read approved venues
+      return {
+        approved: {
+          equals: true,
+        },
+      }
+    },
     update: ({ req: { user } }) => isAdminOrModerator(user),
   },
 }

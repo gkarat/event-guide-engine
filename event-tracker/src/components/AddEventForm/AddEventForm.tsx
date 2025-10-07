@@ -4,16 +4,10 @@ import styles from './add-event-form.module.css'
 import LoadingIndicator from '../LoadingIndicator'
 import VenueSearchField from '../VenueSearchField'
 import { createEvent, uploadMedia } from '@/app/lib/actions'
+import { Venue } from '@/payload-types'
 
 interface Artist {
   name: string
-}
-
-interface Venue {
-  id: number
-  name: string
-  address: string
-  approved: boolean
 }
 
 interface Tag {
@@ -159,11 +153,11 @@ const AddEventForm: React.FC = () => {
     }
 
     if (!formData.location.trim() && !formData.selectedVenue) {
-      newErrors.location = 'Umělci (odděleně čárkou) nebo Venue je povinné'
+      newErrors.location = 'Lokace nebo Venue je povinné'
     }
 
     if (formData.location.trim() && formData.selectedVenue) {
-      newErrors.location = 'Vyplňte pouze jedno: buď Umělci (odděleně čárkou), nebo Venue'
+      newErrors.location = 'Vyplňte pouze jedno: buď Lokace, nebo Venue'
     }
 
     setErrors(newErrors)
@@ -209,8 +203,8 @@ const AddEventForm: React.FC = () => {
       const eventPayload = {
         title: formData.title,
         description: formData.description || undefined,
-        startDate: toISOOrUndefined(formData.startDate),
-        endDate: toISOOrUndefined(formData.endDate || ''),
+        startDate: toISOOrUndefined(formData.startDate) as string,
+        endDate: toISOOrUndefined(formData.endDate),
         location: formData.location || undefined,
         venue: formData.selectedVenue ? formData.selectedVenue.id : undefined,
         backgroundImage: uploadedImageId,
@@ -220,7 +214,7 @@ const AddEventForm: React.FC = () => {
         url: formData.url || undefined,
         artist: (formData.artists || [])
           .filter((a) => a.name.trim() !== '')
-          .map((a) => ({ type: 'string', string: a.name })),
+          .map((a) => ({ type: 'string' as 'string' | 'relationship', string: a.name })),
         approved: false,
       }
 
@@ -254,6 +248,14 @@ const AddEventForm: React.FC = () => {
     } finally {
       setIsSubmitting(false)
     }
+  }
+
+  const handleRemoveFile = () => {
+    setFileName('')
+    setFormData((prev) => ({
+      ...prev,
+      backgroundImage: null,
+    }))
   }
 
   return (
@@ -325,6 +327,7 @@ const AddEventForm: React.FC = () => {
                       type="button"
                       className={styles.removeButton}
                       onClick={() => removeArtist(index)}
+                      aria-label={`Odebrat umělce ${artist.name || index + 1}`}
                     >
                       Odebrat
                     </button>
@@ -384,7 +387,7 @@ const AddEventForm: React.FC = () => {
               <VenueSearchField
                 value={formData.venue}
                 onChange={handleVenueChange}
-                placeholder="Vyhledat venue..."
+                placeholder="Vyhledat venue"
               />
               <div className={styles.helperText}>Vyberte ze seznamu již existujících míst</div>
             </div>
@@ -410,6 +413,7 @@ const AddEventForm: React.FC = () => {
                       type="button"
                       className={styles.removeButton}
                       onClick={() => removeTag(index)}
+                      aria-label={`Odebrat tag ${tag.value || index + 1}`}
                     >
                       Odebrat
                     </button>
@@ -440,7 +444,7 @@ const AddEventForm: React.FC = () => {
             </label>
             {fileName && <div className={styles.fileName}>Vybraný soubor: {fileName}</div>}
             {fileName && (
-              <button type="button" className={styles.removeButton} onClick={() => setFileName('')}>
+              <button type="button" className={styles.removeButton} onClick={handleRemoveFile}>
                 Odebrat soubor
               </button>
             )}
