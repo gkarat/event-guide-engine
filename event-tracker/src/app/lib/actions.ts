@@ -1,9 +1,10 @@
 'use server'
 
-import { getPayload } from 'payload'
 import payloadConfig from '@/payload.config'
+import { getPayload } from 'payload'
+import { Media } from '@/payload-types'
 
-export const getEvents = async (params: any = {}) => {
+export const getEvents = async (params: Record<string, unknown> = {}) => {
   try {
     const payload = await getPayload({ config: payloadConfig })
     const events = await payload.find({
@@ -19,23 +20,7 @@ export const getEvents = async (params: any = {}) => {
   }
 }
 
-export const createEvent = async (params: any = {}) => {
-  try {
-    const payload = await getPayload({ config: payloadConfig })
-    const event = await payload.create({
-      collection: 'events',
-      ...params,
-    })
-
-    return event
-  } catch (error) {
-    console.error('Error creating event', error)
-
-    return null
-  }
-}
-
-export const getVenues = async (params: any = {}) => {
+export const getVenues = async (params: Record<string, unknown> = {}) => {
   try {
     const payload = await getPayload({ config: payloadConfig })
     const venues = await payload.find({
@@ -51,23 +36,7 @@ export const getVenues = async (params: any = {}) => {
   }
 }
 
-export const createVenue = async (params: any = {}) => {
-  try {
-    const payload = await getPayload({ config: payloadConfig })
-    const venue = await payload.create({
-      collection: 'venues',
-      ...params,
-    })
-
-    return venue
-  } catch (error) {
-    console.error('Error creating venue', error)
-
-    return null
-  }
-}
-
-export const getArtists = async (params: any = {}) => {
+export const getArtists = async (params: Record<string, unknown> = {}) => {
   try {
     const payload = await getPayload({ config: payloadConfig })
     const artists = await payload.find({
@@ -78,22 +47,6 @@ export const getArtists = async (params: any = {}) => {
     return artists
   } catch (error) {
     console.error('Error fetching artists', error)
-
-    return null
-  }
-}
-
-export const createArtist = async (params: any = {}) => {
-  try {
-    const payload = await getPayload({ config: payloadConfig })
-    const artist = await payload.create({
-      collection: 'artists',
-      ...params,
-    })
-
-    return artist
-  } catch (error) {
-    console.error('Error creating artist', error)
 
     return null
   }
@@ -131,4 +84,36 @@ export const getArtist = async (id: string) => {
 
     return null
   }
+}
+
+export const uploadMedia = async (form: FormData) => {
+  const file = form.get('file')
+
+  if (!(file instanceof File)) {
+    throw new Error('Invalid file')
+  }
+  const payload = await getPayload({ config: payloadConfig })
+
+  const type = form.get('type') as Media['type']
+  const alt = (form.get('alt') as string) || file.name
+
+  const buffer = Buffer.from(await file.arrayBuffer())
+
+  const media = await payload.create({
+    collection: 'media',
+    data: { type, alt },
+    file: { data: buffer, mimetype: file.type, name: file.name, size: file.size },
+  })
+
+  return media
+}
+
+export const createEvent = async (data: any) => {
+  const payload = await getPayload({ config: payloadConfig })
+  const event = await payload.create({
+    collection: 'events',
+    data,
+  })
+
+  return event
 }

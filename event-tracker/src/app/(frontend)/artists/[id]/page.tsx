@@ -1,7 +1,7 @@
 import React, { Suspense } from 'react'
 import { notFound } from 'next/navigation'
 import ArtistDetail from '@/components/ArtistDetail/ArtistDetail'
-import { getArtist } from '@/api'
+import { getArtist } from '@/app/lib/actions'
 import LoadingIndicator from '@/components/LoadingIndicator/LoadingIndicator'
 
 interface ArtistPageProps {

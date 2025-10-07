@@ -1,4 +1,4 @@
-import { getEvents } from '@/api'
+import { getEvents } from '@/app/lib/actions'
 import EventCard from '../EventCard/EventCard'
 import { Event } from '@/payload-types'
 import styles from './event-list.module.css'

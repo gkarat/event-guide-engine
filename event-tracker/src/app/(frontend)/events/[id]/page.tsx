@@ -1,7 +1,7 @@
 import React, { Suspense } from 'react'
 import { notFound } from 'next/navigation'
 import EventDetail from '@/components/EventDetail/EventDetail'
-import { getEvent } from '@/api'
+import { getEvent } from '@/app/lib/actions'
 import LoadingIndicator from '@/components/LoadingIndicator/LoadingIndicator'
 
 interface EventPageProps {

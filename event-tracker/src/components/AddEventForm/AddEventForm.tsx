@@ -2,9 +2,18 @@
 import React, { useState } from 'react'
 import styles from './add-event-form.module.css'
 import LoadingIndicator from '../LoadingIndicator'
+import VenueSearchField from '../VenueSearchField'
+import { createEvent, uploadMedia } from '@/app/lib/actions'
 
 interface Artist {
   name: string
+}
+
+interface Venue {
+  id: number
+  name: string
+  address: string
+  approved: boolean
 }
 
 interface Tag {
@@ -19,6 +28,7 @@ interface FormData {
   endDate: string
   location: string
   venue: string
+  selectedVenue: Venue | null
   backgroundImage: File | null
   tags: Tag[]
   url: string
@@ -33,6 +43,7 @@ const AddEventForm: React.FC = () => {
     endDate: '',
     location: '',
     venue: '',
+    selectedVenue: null,
     backgroundImage: null,
     tags: [],
     url: '',
@@ -120,6 +131,22 @@ const AddEventForm: React.FC = () => {
     setFileName(file?.name || '')
   }
 
+  const handleVenueChange = (venue: Venue | null) => {
+    setFormData((prev) => ({
+      ...prev,
+      selectedVenue: venue,
+      venue: venue ? venue.name : '',
+    }))
+    // Clear error when venue is selected
+    if (venue && errors.location) {
+      setErrors((prev) => {
+        const newErrors = { ...prev }
+        delete newErrors.location
+        return newErrors
+      })
+    }
+  }
+
   const validateForm = (): boolean => {
     const newErrors: Record<string, string> = {}
 
@@ -131,11 +158,11 @@ const AddEventForm: React.FC = () => {
       newErrors.startDate = 'Začátek akce je povinný'
     }
 
-    if (!formData.location.trim() && !formData.venue.trim()) {
+    if (!formData.location.trim() && !formData.selectedVenue) {
       newErrors.location = 'Umělci (odděleně čárkou) nebo Venue je povinné'
     }
 
-    if (formData.location.trim() && formData.venue.trim()) {
+    if (formData.location.trim() && formData.selectedVenue) {
       newErrors.location = 'Vyplňte pouze jedno: buď Umělci (odděleně čárkou), nebo Venue'
     }
 
@@ -158,44 +185,34 @@ const AddEventForm: React.FC = () => {
     })
 
     try {
-      let uploadedImageId: string | undefined
+      let uploadedImageId: number | undefined
 
+      // Upload image if provided
       if (formData.backgroundImage) {
-        const uploadData = new FormData()
-        uploadData.append('file', formData.backgroundImage)
-        uploadData.append(
-          'data',
-          JSON.stringify({
-            alt: formData.title,
-            type: 'image',
-          }),
-        )
+        const fd = new FormData()
+        fd.append('file', formData.backgroundImage)
+        fd.append('alt', formData.title)
+        fd.append('type', 'image')
 
-        const uploadRes = await fetch('/api/media', {
-          method: 'POST',
-          body: uploadData,
-          credentials: 'include',
-        })
-
-        if (!uploadRes.ok) {
-          const message = await uploadRes.text()
-          throw new Error(message || 'Nahrání souboru se nezdařilo')
+        const uploadResult = await uploadMedia(fd)
+        if (!uploadResult?.id) {
+          throw new Error('Error upload media')
         }
-
-        const uploadJson = await uploadRes.json()
-        uploadedImageId = uploadJson?.doc?.id || uploadJson?.id
+        uploadedImageId = uploadResult.id
       }
 
+      // Helper function to convert date strings to ISO format
       const toISOOrUndefined = (value: string) =>
         value ? new Date(value).toISOString() : undefined
 
-      const eventPayload: Record<string, unknown> = {
+      // Prepare event payload
+      const eventPayload = {
         title: formData.title,
         description: formData.description || undefined,
         startDate: toISOOrUndefined(formData.startDate),
         endDate: toISOOrUndefined(formData.endDate || ''),
         location: formData.location || undefined,
-        // Note: venue is a relationship; this form uses free-text, so we omit it
+        venue: formData.selectedVenue ? formData.selectedVenue.id : undefined,
         backgroundImage: uploadedImageId,
         tags: (formData.tags || [])
           .filter((t) => t.value.trim() !== '')
@@ -207,21 +224,10 @@ const AddEventForm: React.FC = () => {
         approved: false,
       }
 
-      const res = await fetch('/api/events', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        credentials: 'include',
-        body: JSON.stringify(eventPayload),
-      })
-
-      if (!res.ok) {
-        const text = await res.text()
-        if (res.status === 401 || res.status === 403) {
-          throw new Error('Pro odeslání události se prosím přihlaste.')
-        }
-        throw new Error(text || 'Odeslání události se nezdařilo')
+      // Create the event
+      const result = await createEvent(eventPayload)
+      if (!result?.id) {
+        throw new Error('Odeslání události se nezdařilo')
       }
 
       setSuccessMessage('Událost byla úspěšně odeslána! Po schválení moderátorem bude zveřejněna.')
@@ -235,14 +241,15 @@ const AddEventForm: React.FC = () => {
         endDate: '',
         location: '',
         venue: '',
+        selectedVenue: null,
         backgroundImage: null,
         tags: [],
         url: '',
       })
       setFileName('')
-    } catch (_error) {
+    } catch (error) {
       const message =
-        _error instanceof Error ? _error.message : 'Něco se pokazilo. Zkuste to prosím znovu.'
+        error instanceof Error ? error.message : 'Něco se pokazilo. Zkuste to prosím znovu.'
       setErrors({ submit: message })
     } finally {
       setIsSubmitting(false)
@@ -374,15 +381,12 @@ const AddEventForm: React.FC = () => {
               <label htmlFor="venue" className={styles.label}>
                 Venue
               </label>
-              <input
-                type="text"
-                id="venue"
-                name="venue"
-                className={styles.input}
+              <VenueSearchField
                 value={formData.venue}
-                onChange={handleInputChange}
+                onChange={handleVenueChange}
+                placeholder="Vyhledat venue..."
               />
-              <div className={styles.helperText}>Vyberte ze seznamu jiz existujicich míst</div>
+              <div className={styles.helperText}>Vyberte ze seznamu již existujících míst</div>
             </div>
           </div>
 

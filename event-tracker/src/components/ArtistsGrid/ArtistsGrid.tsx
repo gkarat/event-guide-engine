@@ -1,4 +1,4 @@
-import { getArtists } from '@/api'
+import { getArtists } from '@/app/lib/actions'
 import { Artist } from '@/payload-types'
 import styles from './artists-grid.module.css'
 import Image from 'next/image'
