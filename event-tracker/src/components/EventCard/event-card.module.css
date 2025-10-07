@@ -53,12 +53,21 @@
 
 .eventCardInfo {
   flex: 1;
+  /* Allow flex child to shrink so text clamping works */
+  min-width: 0;
 }
 
 .eventTitle {
-  text-transform: uppercase;
   font-weight: var(--font-weight-light);
   font-size: var(--font-size-3xl);
+  margin: 0;
+  /* Multi-line clamp to avoid overflow on long titles */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1; /* show 1 line max */
+  line-clamp: 1;
+  overflow: hidden;
+  overflow-wrap: anywhere; /* break long words/URLs if needed */
 }
 
 .eventVenue {
@@ -75,4 +84,14 @@
   color: var(--color-text-secondary);
   font-weight: var(--font-weight-light);
   font-size: var(--font-size-3xl);
+}
+
+@media (max-width: 768px) {
+  .eventTitle {
+    font-size: var(--font-size-xl);
+  }
+
+  .timeText {
+    font-size: var(--font-size-xl);
+  }
 }

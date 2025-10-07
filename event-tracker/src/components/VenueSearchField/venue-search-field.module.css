@@ -96,7 +96,7 @@
 }
 
 /* Responsive adjustments */
-@media (max-width: var(--breakpoint-mobile)) {
+@media (max-width: 768px) {
   .input {
     font-size: 16px; /* Prevent zoom on iOS */
   }
