@@ -13,6 +13,7 @@ import { Venues } from './collections/Venues'
 import { Events } from './collections/Events'
 import { en } from '@payloadcms/translations/languages/en'
 import { Artists } from './collections/Artists'
+import { SiteConfig } from './collections/SiteConfig'
 
 // Add more interface languages here
 // import { de } from '@payloadcms/translations/languages/de' // German
@@ -28,6 +29,7 @@ export default buildConfig({
     },
   },
   collections: [Users, Media, Venues, Events, Artists],
+  globals: [SiteConfig],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {

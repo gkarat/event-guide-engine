@@ -90,9 +90,13 @@ export interface Config {
   db: {
     defaultIDType: number;
   };
-  globals: {};
-  globalsSelect: {};
-  locale: 'en-US' | 'de';
+  globals: {
+    'site-config': SiteConfig;
+  };
+  globalsSelect: {
+    'site-config': SiteConfigSelect<false> | SiteConfigSelect<true>;
+  };
+  locale: 'en-US';
   user: User & {
     collection: 'users';
   };
@@ -503,6 +507,75 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
   batch?: T;
   updatedAt?: T;
   createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "site-config".
+ */
+export interface SiteConfig {
+  id: number;
+  /**
+   * Main logo for desktop (recommended: 650x100px)
+   */
+  logoDesktop: number | Media;
+  /**
+   * Logo for mobile devices (recommended: 250x50px)
+   */
+  logoMobile: number | Media;
+  /**
+   * Logo for footer (SVG recommended)
+   */
+  logoFooter: number | Media;
+  /**
+   * Used if BACKGROUND_MAIN_TYPE=image in your .env file
+   */
+  backgroundMainImage?: (number | null) | Media;
+  /**
+   * Used if BACKGROUND_MENU_TYPE=image in your .env file
+   */
+  backgroundMenuImage?: (number | null) | Media;
+  menuLabels: {
+    /**
+     * Label for events navigation item
+     */
+    events: string;
+    /**
+     * Label for artists navigation item
+     */
+    artists: string;
+  };
+  footerText: {
+    addEvent: string;
+    sendFeedback: string;
+  };
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "site-config_select".
+ */
+export interface SiteConfigSelect<T extends boolean = true> {
+  logoDesktop?: T;
+  logoMobile?: T;
+  logoFooter?: T;
+  backgroundMainImage?: T;
+  backgroundMenuImage?: T;
+  menuLabels?:
+    | T
+    | {
+        events?: T;
+        artists?: T;
+      };
+  footerText?:
+    | T
+    | {
+        addEvent?: T;
+        sendFeedback?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

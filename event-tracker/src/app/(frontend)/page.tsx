@@ -4,6 +4,7 @@ import './styles.css'
 import DatePickerClient from '../../components/DatePicker/DatePickerClient'
 import { format } from 'date-fns'
 import LoadingIndicator from '@/components/LoadingIndicator/LoadingIndicator'
+import { loadAppConfig } from '@/config'
 
 interface EventsPageProps {
   searchParams: Promise<{
@@ -14,6 +15,8 @@ interface EventsPageProps {
 export default async function EventsPage({ searchParams }: EventsPageProps) {
   const currentDate = format(new Date(), 'yyyy-MM-dd')
   const selectedDate = (await searchParams).date || currentDate
+
+  console.log(await loadAppConfig())
 
   return (
     <div>
