@@ -1,5 +1,10 @@
-/* Roboto Condensed Font Loading - MUST be at top */
-@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&display=swap');
+/**
+ * Design System
+ * 
+ * Note: Font imports are now loaded dynamically via layout.tsx based on
+ * NEXT_PUBLIC_FONT_URL environment variable. Colors and other CSS variables
+ * can be overridden by the theme configuration system.
+ */
 
 /* Color System */
 :root {

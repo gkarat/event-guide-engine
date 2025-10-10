@@ -1,10 +1,15 @@
 import TabsSwitchClient from '../TabsSwitch/TabsSwitchClient'
 import styles from './top-panel.module.css'
+import type { DynamicConfig } from '@/config'
 
-const TopPanel = () => {
+interface TopPanelProps {
+  dynamicConfig: DynamicConfig
+}
+
+const TopPanel: React.FC<TopPanelProps> = ({ dynamicConfig }) => {
   return (
     <div className={styles.topPanel}>
-      <TabsSwitchClient />
+      <TabsSwitchClient dynamicConfig={dynamicConfig} />
       {/*  <SearchField /> */}
     </div>
   )

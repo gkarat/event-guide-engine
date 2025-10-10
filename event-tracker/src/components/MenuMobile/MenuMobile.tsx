@@ -4,11 +4,20 @@ import styles from './menu-mobile.module.css'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import { usePathname } from 'next/navigation'
+import type { DynamicConfig } from '@/config'
 
-const MenuMobile = () => {
+interface MenuMobileProps {
+  dynamicConfig: DynamicConfig
+}
+
+const MenuMobile: React.FC<MenuMobileProps> = ({ dynamicConfig }) => {
   const [isOpen, setIsOpen] = useState(false)
   const pathname = usePathname()
   const activeTab = pathname.split('/')[1] || 'events'
+
+  // Get labels from dynamic config
+  const eventsLabel = dynamicConfig.ui.menu.eventsLabel
+  const artistsLabel = dynamicConfig.ui.menu.artistsLabel
 
   useEffect(() => {
     if (isOpen) {
@@ -54,14 +63,14 @@ const MenuMobile = () => {
             <span
               className={`${styles.menuMobileContentItemText} ${activeTab === 'events' ? styles.menuMobileContentItemTextActive : ''}`}
             >
-              Události
+              {eventsLabel}
             </span>
           </Link>
           <Link href="/artists" onClick={() => setIsOpen(false)}>
             <span
               className={`${styles.menuMobileContentItemText} ${activeTab === 'artists' ? styles.menuMobileContentItemTextActive : ''}`}
             >
-              Umělci
+              {artistsLabel}
             </span>
           </Link>
         </div>

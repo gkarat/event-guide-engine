@@ -1,13 +1,25 @@
-'use client'
-
 import React from 'react'
 import styles from './footer.module.css'
 import Image from 'next/image'
-import { URLS } from '../../constants.client'
+import { URLS } from '../../constants'
 import Link from 'next/link'
-import FooterBadge from '../Icons/BadgeLogo'
+import type { DynamicConfig } from '@/config'
+import { loadStaticConfig } from '@/config'
 
-const Footer: React.FC = () => {
+interface FooterProps {
+  dynamicConfig: DynamicConfig
+}
+
+const Footer: React.FC<FooterProps> = ({ dynamicConfig }) => {
+  const staticConfig = loadStaticConfig()
+
+  // Extract footer logo URL from dynamic config
+  const footerLogo = dynamicConfig.branding.logoFooter
+
+  // Get UI text from dynamic config
+  const addEventText = dynamicConfig.ui.footer.addEventText
+  const feedbackText = dynamicConfig.ui.footer.sendFeedbackText
+
   return (
     <footer className={styles['footer']}>
       <div className={styles['footer-decoration']}>
@@ -21,27 +33,19 @@ const Footer: React.FC = () => {
       </div>
       {/* Links */}
       <div className={styles['footer-links']}>
-        <Link
-          href={URLS.ADD_EVENT}
-          className={`link ${styles['text-footer']}`}
-          onNavigate={() => window.scrollTo({ top: 0, behavior: 'instant' })}
-        >
-          Přidat událost
+        <Link href={URLS.ADD_EVENT} className={`link ${styles['text-footer']}`}>
+          {addEventText}
         </Link>
-        <Link
-          href={URLS.FEEDBACK}
-          className={`link ${styles['text-footer']}`}
-          onNavigate={() => window.scrollTo({ top: 0, behavior: 'instant' })}
-        >
-          Poslat zpětnou vazbu
+        <Link href={URLS.FEEDBACK} className={`link ${styles['text-footer']}`}>
+          {feedbackText}
         </Link>
       </div>
-      <Link href={URLS.WEBSITE || '/'} className={styles['footer-contact']}>
+      <Link href={staticConfig.site.url || '/'} className={styles['footer-contact']}>
         <div className={styles['footer-badge-container']}>
-          <FooterBadge />
+          {footerLogo && <Image src={footerLogo} alt={`${staticConfig.site.name} logo`} fill />}
         </div>
         <span className={`link ${styles['footer-link']}`}>
-          {URLS.WEBSITE && URLS.WEBSITE.split('https://')[1]}
+          {staticConfig.site.url.replace(/https?:\/\//, '')}
         </span>
       </Link>
     </footer>
