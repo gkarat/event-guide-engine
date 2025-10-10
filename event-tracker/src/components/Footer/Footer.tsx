@@ -1,7 +1,7 @@
 import React from 'react'
 import styles from './footer.module.css'
 import Image from 'next/image'
-import { URLS } from '../../constants'
+import { URLS } from '@/constants'
 import Link from 'next/link'
 import type { DynamicConfig } from '@/config'
 import { loadStaticConfig } from '@/config'

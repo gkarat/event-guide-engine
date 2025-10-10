@@ -1,3 +1,4 @@
+import React from 'react'
 import TabsSwitchClient from '../TabsSwitch/TabsSwitchClient'
 import styles from './top-panel.module.css'
 import type { DynamicConfig } from '@/config'
