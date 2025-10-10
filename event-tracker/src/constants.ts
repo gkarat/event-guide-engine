@@ -1,3 +1,5 @@
+import { loadStaticConfig } from './config'
+
 export const hasSmtpSet = true
 /*   process.env.SMTP_HOST &&
   process.env.SMTP_PORT &&
@@ -5,8 +7,10 @@ export const hasSmtpSet = true
   process.env.SMTP_PASSWORD
  */
 
+const config = loadStaticConfig()
+
 // Website URL configuration
-export const WEBSITE_URL = process.env.NEXT_PUBLIC_WEBSITE_URL
+export const WEBSITE_URL = config.site.url
 
 // URL configuration for different environments
 export const URLS = {

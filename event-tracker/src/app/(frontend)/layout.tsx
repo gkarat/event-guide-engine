@@ -7,14 +7,18 @@ import styles from './layout.module.css'
 import Image from 'next/image'
 import TopPanel from '@/components/TopPanel/TopPanel'
 import MenuMobile from '@/components/MenuMobile/MenuMobile'
+import { loadAppConfig } from '@/config'
 
 export const metadata = {
   description: 'A blank template using Payload in a Next.js app.',
   title: 'Payload Blank Template',
 }
 
-export default function RootLayout(props: { children: React.ReactNode }) {
+export default async function RootLayout(props: { children: React.ReactNode }) {
   const { children } = props
+
+  // Load configuration
+  const config = await loadAppConfig()
 
   // TODO: make lang variable
   return (

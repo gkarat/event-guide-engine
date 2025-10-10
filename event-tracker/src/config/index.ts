@@ -134,8 +134,8 @@ export function loadStaticConfig(): StaticConfig {
       },
     },
     i18n: {
-      locales: process.env.NEXT_PUBLIC_LOCALES?.split(',').map((l) => l.trim()) || ['en'],
-      defaultLocale: process.env.NEXT_PUBLIC_DEFAULT_LOCALE || 'en',
+      locales: process.env.CONTENT_LOCALES?.split(',').map((l) => l.trim()) || ['en'],
+      defaultLocale: process.env.DEFAULT_CONTENT_LOCALE || 'en',
     },
   }
 }

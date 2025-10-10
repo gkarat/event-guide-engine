@@ -14,10 +14,12 @@ import { Events } from './collections/Events'
 import { en } from '@payloadcms/translations/languages/en'
 import { Artists } from './collections/Artists'
 import { SiteConfig } from './collections/SiteConfig'
+import { loadStaticConfig } from './config'
 
 // Add more interface languages here
 // import { de } from '@payloadcms/translations/languages/de' // German
 
+const config = loadStaticConfig()
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
@@ -51,7 +53,7 @@ export default buildConfig({
     },
   },
   localization: {
-    locales: process.env.CONTENT_LOCALES?.split(',') || ['en-US'],
-    defaultLocale: 'en-US',
+    locales: config.i18n.locales,
+    defaultLocale: config.i18n.defaultLocale,
   },
 })
