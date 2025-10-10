@@ -15,6 +15,7 @@ import { en } from '@payloadcms/translations/languages/en'
 import { Artists } from './collections/Artists'
 import { SiteConfig } from './collections/SiteConfig'
 import { loadStaticConfig } from './config'
+import { Feedback } from './collections/Feedback'
 
 // Add more interface languages here
 // import { de } from '@payloadcms/translations/languages/de' // German
@@ -30,7 +31,7 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Users, Media, Venues, Events, Artists],
+  collections: [Users, Feedback, Media, Venues, Events, Artists],
   globals: [SiteConfig],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',

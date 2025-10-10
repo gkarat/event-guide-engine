@@ -130,3 +130,18 @@ export const createEvent = async (data: Omit<Event, 'id' | 'updatedAt' | 'create
 
   return event
 }
+
+export const submitFeedback = async (data: { email?: string; message: string }) => {
+  try {
+    const payload = await getPayload({ config: payloadConfig })
+    const feedback = await payload.create({
+      collection: 'feedback',
+      data,
+    })
+
+    return { success: true, data: feedback }
+  } catch (error) {
+    console.error('Error submitting feedback', error)
+    return { success: false, error: 'Failed to submit feedback' }
+  }
+}

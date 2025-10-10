@@ -1,0 +1,122 @@
+.formContainer {
+  padding: var(--space-4);
+  margin-bottom: var(--space-4);
+}
+
+.formHeader {
+  margin-bottom: var(--space-6);
+  font-weight: var(--font-weight-bold);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.label {
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-form-label);
+  text-transform: uppercase;
+}
+
+.required {
+  color: var(--color-form-required);
+  margin-left: var(--space-1);
+}
+
+.input,
+.textarea {
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-base);
+  padding: var(--space-3);
+  background-color: var(--color-form-input-bg);
+  color: var(--color-form-input-text);
+  border: 1px solid var(--color-form-input-border);
+  border-radius: var(--radius-sm);
+  transition: var(--transition-form-input);
+}
+
+.input:focus,
+.textarea:focus {
+  outline: none;
+  border-color: var(--color-form-input-border-focus);
+  box-shadow: var(--color-form-focus-shadow);
+}
+
+.input::placeholder,
+.textarea::placeholder {
+  color: var(--color-form-input-placeholder);
+}
+
+.textarea {
+  min-height: var(--size-form-textarea-min-height);
+  resize: vertical;
+  font-family: var(--font-family-primary);
+}
+
+.helperText {
+  font-size: var(--font-size-sm);
+  color: var(--color-form-helper-text);
+  margin-top: var(--space-1);
+}
+
+.submitButton {
+  margin-top: var(--space-4);
+  padding: var(--space-4) var(--space-6);
+  background-color: var(--color-form-button-submit-bg);
+  color: var(--color-form-button-submit-text);
+  border: none;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-bold);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: var(--transition-form-button);
+}
+
+.submitButton:hover {
+  background-color: var(--color-form-button-submit-bg-hover);
+}
+
+.submitButton:active {
+  transform: scale(0.98);
+}
+
+.submitButton:disabled {
+  background-color: var(--color-form-button-submit-bg-disabled);
+  cursor: not-allowed;
+  transform: none;
+}
+
+.errorMessage {
+  color: var(--color-form-error-text);
+  font-size: var(--font-size-sm);
+  margin-top: var(--space-1);
+}
+
+.successMessage {
+  background-color: var(--color-form-success-bg);
+  border: 1px solid var(--color-form-success-border);
+  border-radius: var(--radius-sm);
+  padding: var(--space-4);
+  color: var(--color-form-success-text);
+  font-size: var(--font-size-base);
+  margin-bottom: var(--space-4);
+}
+
+@media (max-width: 768px) {
+  .formDescription {
+    width: 100%;
+  }
+}

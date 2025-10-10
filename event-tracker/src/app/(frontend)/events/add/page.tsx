@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { Suspense } from 'react'
 import AddEventForm from '@/components/AddEventForm'
+import LoadingIndicator from '@/components/LoadingIndicator'
 
 export const metadata = {
   title: 'Přidat událost - Event Tracker',
@@ -8,8 +9,8 @@ export const metadata = {
 
 export default function AddEventPage() {
   return (
-    <div>
+    <Suspense fallback={<LoadingIndicator />}>
       <AddEventForm />
-    </div>
+    </Suspense>
   )
 }
