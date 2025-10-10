@@ -3,7 +3,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
-import { URLS } from '../constants'
 
 interface HeaderProps {
   activeTab?: 'events' | 'artists'

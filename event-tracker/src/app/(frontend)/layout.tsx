@@ -18,8 +18,8 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
   const { children } = props
 
   // Load configuration
-  const config = await loadAppConfig()
-
+  /*   const config = await loadAppConfig()
+   */
   // TODO: make lang variable
   return (
     <html lang="en">
