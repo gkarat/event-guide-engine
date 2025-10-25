@@ -1,5 +1,5 @@
 import { getArtists } from '@/app/lib/actions'
-import { Artist } from '@/payload-types'
+import { Artist, Media } from '@/payload-types'
 import styles from './artists-grid.module.css'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -9,7 +9,7 @@ const getAvatar = (artist: Artist) => {
     return artist.avatar.url
   }
   if (artist.avatar.type === 'media') {
-    return artist.avatar.media?.url
+    return (artist.avatar.media as Media)?.url
   }
 
   return null
@@ -36,7 +36,9 @@ const ArtistsGrid: React.FC = async () => {
             className={styles.artistCard}
           >
             <div className={styles.artistAvatarContainer}>
-              <Image src={avatarUrl} alt={artistData.name} fill className={styles.artistAvatar} />
+              {avatarUrl && (
+                <Image src={avatarUrl} alt={artistData.name} fill className={styles.artistAvatar} />
+              )}
               <div className={styles.artistAvatarOverlay} />
             </div>
             <div className={styles.artistName}>{artistData.name}</div>

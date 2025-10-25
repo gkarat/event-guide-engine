@@ -1,4 +1,3 @@
-import { hasSmtpSet } from '@/constants'
 import type { CollectionConfig } from 'payload'
 
 export const isAdmin = (user: any) => user?.role === 'admin' && user?.suspended === false

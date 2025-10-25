@@ -6,6 +6,8 @@ import path from 'path'
 import { buildConfig } from 'payload'
 import { fileURLToPath } from 'url'
 import sharp from 'sharp'
+import dotenv from 'dotenv'
+import fs from 'fs'
 
 import { Users } from './collections/Users'
 import { Media } from './collections/Media'
@@ -20,9 +22,17 @@ import { Feedback } from './collections/Feedback'
 // Add more interface languages here
 // import { de } from '@payloadcms/translations/languages/de' // German
 
-const config = loadStaticConfig()
+// Load .env file from parent directory (root of the project)
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
+const envPath = path.join(dirname, '../../.env')
+
+if (fs.existsSync(envPath)) {
+  dotenv.config({ path: envPath })
+  console.log('[payload.config.ts] Loaded .env from parent directory')
+}
+
+const config = loadStaticConfig()
 
 export default buildConfig({
   admin: {

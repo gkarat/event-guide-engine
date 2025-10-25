@@ -1,10 +1,22 @@
 import { defineConfig, devices } from '@playwright/test'
+import dotenv from 'dotenv'
+import path from 'path'
+import fs from 'fs'
+import { fileURLToPath } from 'url'
 
 /**
  * Read environment variables from file.
  * https://github.com/motdotla/dotenv
  */
-import 'dotenv/config'
+// Load .env file from parent directory (root of the project)
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
+const envPath = path.join(__dirname, '../.env')
+
+if (fs.existsSync(envPath)) {
+  dotenv.config({ path: envPath })
+  console.log('[playwright.config.ts] Loaded .env from parent directory')
+}
 
 /**
  * See https://playwright.dev/docs/test-configuration.

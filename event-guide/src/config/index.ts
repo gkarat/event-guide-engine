@@ -85,13 +85,14 @@ export interface AppConfig extends StaticConfig {
  * Throws error if required variables are missing
  */
 export function loadStaticConfig(): StaticConfig {
+  // TODO: refine the fallback values and check the build behavior
   const required = {
-    siteName: process.env.NEXT_PUBLIC_SITE_NAME,
-    siteUrl: process.env.NEXT_PUBLIC_WEBSITE_URL,
-    brandColor: process.env.NEXT_PUBLIC_BRAND_COLOR,
-    textPrimary: process.env.NEXT_PUBLIC_TEXT_PRIMARY,
-    textSecondary: process.env.NEXT_PUBLIC_TEXT_SECONDARY,
-    fontFamily: process.env.NEXT_PUBLIC_FONT_FAMILY,
+    siteName: process.env.NEXT_PUBLIC_SITE_NAME || 'Event Guide App',
+    siteUrl: process.env.NEXT_PUBLIC_WEBSITE_URL || 'https://localhost:3000',
+    brandColor: process.env.NEXT_PUBLIC_BRAND_COLOR || '#FF0000',
+    textPrimary: process.env.NEXT_PUBLIC_TEXT_PRIMARY || '#1A1A1A',
+    textSecondary: process.env.NEXT_PUBLIC_TEXT_SECONDARY || '#313131',
+    fontFamily: process.env.NEXT_PUBLIC_FONT_FAMILY || 'sans-serif',
   }
 
   // Validate required fields

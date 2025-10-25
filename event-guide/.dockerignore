@@ -1,0 +1,96 @@
+# ==============================================================================
+# Docker Ignore File
+# ==============================================================================
+# Files and directories that should NOT be copied into the Docker image
+# This reduces build time and image size
+# ==============================================================================
+
+# Dependencies (will be installed during build)
+node_modules
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.pnpm-store
+
+# Next.js build output (will be generated during build)
+.next
+out
+dist
+
+# Environment files (secrets should never be in image)
+.env
+.env.*
+!.env.example
+!env.example
+
+# Git
+.git
+.gitignore
+.gitattributes
+
+# Documentation and examples
+*.md
+!README.md
+LICENSE
+docs
+media
+examples
+
+# Testing
+coverage
+.nyc_output
+tests
+*.test.ts
+*.test.tsx
+*.spec.ts
+*.spec.tsx
+playwright-report
+test-results
+
+# IDE and editor files
+.vscode
+.idea
+*.swp
+*.swo
+*~
+.DS_Store
+
+# CI/CD
+.github
+.gitlab-ci.yml
+.travis.yml
+circle.yml
+
+# Docker files (don't need these inside the image)
+Dockerfile*
+docker-compose*
+.dockerignore
+
+# Logs
+logs
+*.log
+
+# Temporary files
+tmp
+temp
+.cache
+
+# User-specific files (will be mounted as volumes)
+branding
+uploads
+public/branding
+
+# Development files
+.editorconfig
+.eslintcache
+.prettierrc
+.prettierignore
+
+# OS files
+Thumbs.db
+
+# Ansible (if you have deployment scripts)
+ansible
+
+

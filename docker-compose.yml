@@ -1,35 +1,25 @@
-version: "3"
-
+version: "3.8"
 services:
-  payload:
-    image: node:20-alpine
+  app:
+    build: .
     ports:
       - "3000:3000"
-    volumes:
-      - .:/home/node/app
-      - node_modules:/home/node/app/node_modules
-    working_dir: /home/node/app/
-    command: sh -c "corepack enable && corepack prepare pnpm@latest --activate && pnpm install && pnpm dev"
+    environment:
+      - DATABASE_URI=postgres://eventguide:password@db:5432/eventguide
     depends_on:
-      - postgres
-    env_file:
-      - .env
-    environment:
-      DATABASE_URI: postgres://payload_user:payload_password@db:5432/payload_db
-      PAYLOAD_SECRET: your_super_secret_key
-  db:
-    image: postgres:latest
-    restart: always
-    environment:
-      POSTGRES_USER: payload_user
-      POSTGRES_PASSWORD: payload_password
-      POSTGRES_DB: payload_db
+      - db
     volumes:
-      - pgdata:/var/lib/postgresql/data
-    ports:
-      - "5432:5432"
+      - uploads:/app/uploads
+
+  db:
+    image: postgres:16-alpine
+    environment:
+      - POSTGRES_USER=eventguide
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=eventguide
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
 
 volumes:
-  data:
-  pgdata:
-  node_modules:
+  postgres_data:
+  uploads:
