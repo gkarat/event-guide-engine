@@ -1,9 +1,9 @@
-const DatePickerToggle = () => (
+const DatePickerToggle = ({ fillColor }: { fillColor: string }) => (
   <svg width="12" height="6" viewBox="0 0 12 6" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path
       d="M10.5671 0.572023C10.735 0.426568 10.9202 0.508389 10.9808 0.754747C11.0413 1.00109 10.9543 1.31865 10.7864 1.4641L6.21738 5.42361C6.13417 5.5 6.06058 5.5 5.99993 5.5C5.93928 5.5 5.8868 5.5 5.78262 5.42361L1.21356 1.4641C1.04572 1.31865 0.958707 1.0011 1.01925 0.754747C1.07981 0.508389 1.26503 0.426568 1.43288 0.572023L5.99993 4.52952L10.5671 0.572023Z"
-      fill="#FFF200"
-      stroke="#FFF200"
+      fill={fillColor}
+      stroke={fillColor}
       strokeWidth="0.5"
       strokeLinecap="round"
     />

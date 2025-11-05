@@ -8,9 +8,11 @@ import DatePickerToggle from '../Icons/DatePickerToggle'
 const DatePickerClient = ({
   currentDate,
   selectedDate,
+  fillColor,
 }: {
   currentDate: string
   selectedDate: string
+  fillColor: string
 }) => {
   const router = useRouter()
   const searchParams = useSearchParams()
@@ -63,7 +65,7 @@ const DatePickerClient = ({
           )}
         </span>
         <div className={styles['chevron-container']}>
-          <DatePickerToggle />
+          <DatePickerToggle fillColor={fillColor} />
         </div>
       </div>
     </div>

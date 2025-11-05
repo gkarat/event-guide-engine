@@ -56,7 +56,7 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
     const logoDesktop = `/media/${staticConfig.branding.logoDesktop}`
 
     return (
-      <html lang={staticConfig.i18n.defaultLocale}>
+      <html lang={staticConfig.i18n.defaultLocale} style={themeStyles}>
         <head>
           {/* Preload custom font if provided */}
           {fontUrl && (
@@ -72,7 +72,7 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
             </>
           )}
         </head>
-        <body style={themeStyles}>
+        <body>
           <div>
             <div className={styles['main-layout']}>
               <div className={styles['layout-content']}>

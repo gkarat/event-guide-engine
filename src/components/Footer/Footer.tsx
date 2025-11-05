@@ -22,15 +22,6 @@ const Footer: React.FC<FooterProps> = ({ dynamicConfig }) => {
 
   return (
     <footer className={styles['footer']}>
-      <div className={styles['footer-decoration']}>
-        <Image
-          src="/media/footer-art.png"
-          alt="Footer decoration"
-          className={styles['footer-art']}
-          width={500}
-          height={100}
-        />
-      </div>
       {/* Links */}
       <div className={styles['footer-links']}>
         <Link href={URLS.ADD_EVENT} className={`link ${styles['text-footer']}`}>

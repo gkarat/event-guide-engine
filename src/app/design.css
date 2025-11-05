@@ -9,12 +9,6 @@
 /* Color System */
 :root {
   /* ===== PRIMITIVE COLOR TOKENS ===== */
-
-  /* Brand Colors */
-  --color-yellow-500: #fff200;
-  --color-yellow-400: #fff533;
-  --color-yellow-600: #e6d900;
-
   /* Neutral Colors */
   --color-white: #ffffff;
   --color-black: #000000;
@@ -39,9 +33,17 @@
   /* ===== SEMANTIC COLOR TOKENS ===== */
 
   /* Brand Semantic */
-  --color-brand-primary: var(--color-yellow-500);
-  --color-brand-primary-hover: var(--color-yellow-400);
-  --color-brand-primary-active: var(--color-yellow-600);
+  /*  --color-brand-primary is set with instance.ts */
+  --color-brand-primary-hover: color-mix(
+    in oklch,
+    var(--color-brand-primary) 85%,
+    var(--color-white)
+  );
+  --color-brand-primary-active: color-mix(
+    in oklch,
+    var(--color-brand-primary) 85%,
+    var(--color-black)
+  );
 
   /* Background Semantic */
   --color-background-primary: var(--color-dark-200);
@@ -61,7 +63,6 @@
   --color-link-default: color-mix(in srgb, var(--color-brand-primary) 50%, transparent);
   --color-link-hover: var(--color-brand-primary);
   --color-link-active: var(--color-brand-primary-active);
-  --color-link-visited: color-mix(in srgb, var(--color-brand-primary) 70%, transparent);
 
   /* Border Semantic */
   --color-border-primary: var(--color-dark-500);
@@ -493,10 +494,6 @@
   color: var(--color-link-active);
 }
 
-.text-link-visited {
-  color: var(--color-link-visited);
-}
-
 /* ===== GLOBAL LINK CLASS ===== */
 /* 
  * Use this class for all links across the application to ensure consistent styling.
@@ -506,7 +503,6 @@
  * - Default link color using brand primary with transparency
  * - Hover state with full brand primary color
  * - Active state with darker brand primary
- * - Visited state with slightly more opaque brand primary
  * - Smooth transitions between states
  * - No text decoration by default
  */
@@ -524,10 +520,6 @@
   color: var(--color-link-active);
 }
 
-.link:visited {
-  color: var(--color-link-visited);
-}
-
 /* Link with underline variant */
 .link-underline {
   color: var(--color-link-default);
@@ -541,10 +533,6 @@
 
 .link-underline:active {
   color: var(--color-link-active);
-}
-
-.link-underline:visited {
-  color: var(--color-link-visited);
 }
 
 /* State Text Colors */
