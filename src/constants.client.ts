@@ -1,15 +1,16 @@
 /**
  * Client-safe constants that can be imported in Client Components
- * Only uses NEXT_PUBLIC_* environment variables
+ * Uses static configuration from /config/index.ts
  */
 
-// Website URL configuration
-export const WEBSITE_URL = process.env.NEXT_PUBLIC_WEBSITE_URL || ''
+import { loadStaticConfig } from './config'
+
+const config = loadStaticConfig()
 
 // URL configuration for different environments
 export const URLS = {
   // External website URLs
-  WEBSITE: WEBSITE_URL,
+  WEBSITE: config.site.url,
   ADD_EVENT: '/events/add',
   FEEDBACK: '/feedback',
 

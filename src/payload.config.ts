@@ -44,13 +44,13 @@ export default buildConfig({
   collections: [Users, Feedback, Media, Venues, Events, Artists],
   globals: [SiteConfig],
   editor: lexicalEditor(),
-  secret: process.env.PAYLOAD_SECRET || '',
+  secret: config.secret,
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),
   },
   db: postgresAdapter({
     pool: {
-      connectionString: process.env.DATABASE_URI || '',
+      connectionString: config.database.uri,
     },
   }),
   sharp,

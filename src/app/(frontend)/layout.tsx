@@ -52,8 +52,8 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
     // Determine if font is from Google Fonts for smart preconnect
     const isGoogleFont = fontUrl?.includes('fonts.googleapis.com')
 
-    // Extract logo URL from dynamic config
-    const logoDesktop = dynamicConfig.branding.logoDesktop
+    // Extract logo URL from static config (construct full path)
+    const logoDesktop = `/media/${staticConfig.branding.logoDesktop}`
 
     return (
       <html lang={staticConfig.i18n.defaultLocale}>

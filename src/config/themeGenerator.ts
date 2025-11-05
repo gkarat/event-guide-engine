@@ -19,18 +19,30 @@ export function generateThemeStyles(config: StaticConfig): React.CSSProperties {
     '--color-brand-primary': colors.brandPrimary,
     '--color-text-primary': colors.textPrimary,
     '--color-text-secondary': colors.textSecondary,
-
-    // Typography overrides
-    '--font-family-primary': `'${typography.fontFamily}', sans-serif`,
   }
 
-  // Add background colors if using color type
+  // Background configuration
   if (backgrounds.main.type === 'color') {
-    styles['--color-background-primary'] = backgrounds.main.value
+    styles['--color-background-primary'] = backgrounds.main.color
+  } else {
+    // Use background image
+    styles['--color-background-primary'] = backgrounds.main.color // fallback color
+    styles['background-image'] = `url(/media/${backgrounds.main.image})`
+    styles['background-size'] = 'cover'
+    styles['background-position'] = 'center'
+    styles['background-attachment'] = 'fixed'
   }
 
   if (backgrounds.menu.type === 'color') {
-    styles['--color-background-menu'] = backgrounds.menu.value
+    styles['--color-background-menu'] = backgrounds.menu.color
+  } else {
+    // Note: Menu background image would need to be handled separately in menu component
+    styles['--color-background-menu'] = backgrounds.menu.color // fallback color
+  }
+
+  // Typography overrides (only if fontFamily is set)
+  if (typography.fontFamily) {
+    styles['--font-family-primary'] = `'${typography.fontFamily}', sans-serif`
   }
 
   return styles as React.CSSProperties

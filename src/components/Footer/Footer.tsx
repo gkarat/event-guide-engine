@@ -13,8 +13,8 @@ interface FooterProps {
 const Footer: React.FC<FooterProps> = ({ dynamicConfig }) => {
   const staticConfig = loadStaticConfig()
 
-  // Extract footer logo URL from dynamic config
-  const footerLogo = dynamicConfig.branding.logoFooter
+  // Extract footer logo URL from static config (construct full path)
+  const footerLogo = `/media/${staticConfig.branding.logoFooter}`
 
   // Get UI text from dynamic config
   const addEventText = dynamicConfig.ui.footer.addEventText

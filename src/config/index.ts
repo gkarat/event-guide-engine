@@ -1,18 +1,18 @@
 /**
  * Application Configuration System
  *
- * STRICT SEPARATION:
- * - Environment Variables: Site info, colors, fonts, locales (deployment config)
- * - PayloadCMS Globals: Logos, images, UI text (admin-managed content)
- *
- * No fallbacks - configuration must be properly set in both places.
+ * SEPARATION:
+ * - /config/instance.ts: Site configuration, theme, branding (admin-customizable)
+ * - Environment Variables (.env): Only DATABASE_URI and PAYLOAD_SECRET
+ * - /public/media/: Static assets (logos, background images)
+ * - PayloadCMS Globals: UI text and labels only (dynamic content)
  */
 
-import type { Media } from '@/payload-types'
+import { config as instanceConfig } from '../../config/instance'
 
 /**
- * Static Configuration (from environment variables)
- * Set once at deployment, rarely changes
+ * Static Configuration
+ * Loaded from /config/instance.ts and environment variables
  */
 export interface StaticConfig {
   site: {
@@ -27,40 +27,42 @@ export interface StaticConfig {
       textSecondary: string
     }
     typography: {
-      fontFamily: string
-      fontUrl: string | null
+      fontFamily: string | undefined
+      fontUrl: string | undefined
     }
     backgrounds: {
       main: {
         type: 'color' | 'image'
-        value: string // Hex color OR path to image in PayloadCMS
+        color: string
+        image: string | undefined // filename in /public/media/
       }
       menu: {
         type: 'color' | 'image'
-        value: string // Hex color OR path to image in PayloadCMS
+        color: string
+        image: string | undefined // filename in /public/media/
       }
     }
+  }
+  branding: {
+    logoDesktop: string // filename in /public/media/
+    logoMobile: string // filename in /public/media/
+    logoFooter: string // filename in /public/media/
   }
   i18n: {
     locales: string[]
     defaultLocale: string
   }
+  secret: string
+  database: {
+    uri: string
+  }
 }
 
 /**
  * Dynamic Configuration (from PayloadCMS)
- * Managed by admins, can change anytime
+ * Managed by admins via admin panel, can change anytime
  */
 export interface DynamicConfig {
-  branding: {
-    logoDesktop: string
-    logoMobile: string
-    logoFooter: string
-  }
-  backgrounds: {
-    mainImage: string | null
-    menuImage: string | null
-  }
   ui: {
     menu: {
       eventsLabel: string
@@ -81,87 +83,76 @@ export interface AppConfig extends StaticConfig {
 }
 
 /**
- * Load static configuration from environment variables
+ * Load static configuration
+ * Combines /config/instance.ts with environment variables
  * Throws error if required variables are missing
  */
 export function loadStaticConfig(): StaticConfig {
-  // TODO: refine the fallback values and check the build behavior
-  const required = {
-    siteName: process.env.NEXT_PUBLIC_SITE_NAME || 'Event Guide App',
-    siteUrl: process.env.NEXT_PUBLIC_WEBSITE_URL || 'https://localhost:3000',
-    brandColor: process.env.NEXT_PUBLIC_BRAND_COLOR || '#FF0000',
-    textPrimary: process.env.NEXT_PUBLIC_TEXT_PRIMARY || '#1A1A1A',
-    textSecondary: process.env.NEXT_PUBLIC_TEXT_SECONDARY || '#313131',
-    fontFamily: process.env.NEXT_PUBLIC_FONT_FAMILY || 'sans-serif',
+  // Validate required environment variables
+  const databaseUri = process.env.DATABASE_URI
+  const secret = process.env.PAYLOAD_SECRET
+
+  if (!databaseUri) {
+    throw new Error(
+      'Missing required environment variable: DATABASE_URI. Please check your .env file.',
+    )
   }
 
-  // Validate required fields
-  const missing = Object.entries(required)
-    .filter(([_, value]) => !value)
-    .map(([key]) => key)
-
-  if (missing.length > 0) {
+  if (!secret) {
     throw new Error(
-      `Missing required environment variables: ${missing.join(', ')}. ` +
-        'Please check your .env file.',
+      'Missing required environment variable: PAYLOAD_SECRET. Please check your .env file.',
     )
   }
 
   return {
     site: {
-      name: required.siteName!,
-      url: required.siteUrl!,
-      timezone: process.env.NEXT_PUBLIC_TIMEZONE || 'UTC',
+      name: instanceConfig.site.name,
+      url: instanceConfig.site.url,
+      timezone: instanceConfig.site.timezone,
     },
     theme: {
       colors: {
-        brandPrimary: required.brandColor!,
-        textPrimary: required.textPrimary!,
-        textSecondary: required.textSecondary!,
+        brandPrimary: instanceConfig.theme.brandColor,
+        textPrimary: instanceConfig.theme.textPrimary,
+        textSecondary: instanceConfig.theme.textSecondary,
       },
       typography: {
-        fontFamily: required.fontFamily!,
-        fontUrl: process.env.NEXT_PUBLIC_FONT_URL || null,
+        fontFamily: instanceConfig.theme.fontFamily,
+        fontUrl: instanceConfig.theme.fontUrl,
       },
       backgrounds: {
         main: {
-          type: process.env.NEXT_PUBLIC_BACKGROUND_MAIN_TYPE === 'image' ? 'image' : 'color',
-          value: process.env.NEXT_PUBLIC_BACKGROUND_MAIN_VALUE || '#141414',
+          type: instanceConfig.theme.mainBgType,
+          color: instanceConfig.theme.mainBgColor,
+          image: instanceConfig.theme.mainBgImage,
         },
         menu: {
-          type: process.env.NEXT_PUBLIC_BACKGROUND_MENU_TYPE === 'image' ? 'image' : 'color',
-          value: process.env.NEXT_PUBLIC_BACKGROUND_MENU_VALUE || '#1a1a1a',
+          type: instanceConfig.theme.menuBgType,
+          color: instanceConfig.theme.menuBgColor,
+          image: instanceConfig.theme.menuBgImage,
         },
       },
     },
+    branding: {
+      logoDesktop: instanceConfig.branding.logoDesktop,
+      logoMobile: instanceConfig.branding.logoMobile,
+      logoFooter: instanceConfig.branding.logoFooter,
+    },
     i18n: {
-      locales: process.env.CONTENT_LOCALES?.split(',').map((l) => l.trim()) || ['en'],
-      defaultLocale: process.env.DEFAULT_CONTENT_LOCALE || 'en',
+      locales: [...instanceConfig.i18n.locales],
+      defaultLocale: instanceConfig.i18n.defaultLocale,
+    },
+    secret,
+    database: {
+      uri: databaseUri,
     },
   }
-}
-
-/**
- * Helper to get media URL from PayloadCMS media object
- */
-function getMediaUrl(media: Media | number | string | null | undefined): string {
-  if (!media) {
-    throw new Error('Media object is required but was not provided')
-  }
-  if (typeof media === 'string') return media
-  if (typeof media === 'number') {
-    throw new Error('Media ID received instead of populated object. Ensure depth is set correctly.')
-  }
-  if (!media.url) {
-    throw new Error('Media object does not have a URL')
-  }
-  return media.url
 }
 
 /**
  * Load dynamic configuration from PayloadCMS
  * Must be called in Server Components
- * Throws error if site-config global doesn't exist or is incomplete
+ * Loads only UI text and labels
  */
 export async function loadDynamicConfig(): Promise<DynamicConfig> {
   try {
@@ -172,7 +163,7 @@ export async function loadDynamicConfig(): Promise<DynamicConfig> {
 
     const dbConfig = await payload.findGlobal({
       slug: 'site-config',
-      depth: 1,
+      depth: 0, // No need for deep population, just text fields
     })
 
     // Validate required fields exist
@@ -182,22 +173,7 @@ export async function loadDynamicConfig(): Promise<DynamicConfig> {
       )
     }
 
-    if (!dbConfig.logoDesktop || !dbConfig.logoMobile || !dbConfig.logoFooter) {
-      throw new Error(
-        'All logo images are required in site-config. Please upload them in the admin panel.',
-      )
-    }
-
     return {
-      branding: {
-        logoDesktop: getMediaUrl(dbConfig.logoDesktop),
-        logoMobile: getMediaUrl(dbConfig.logoMobile),
-        logoFooter: getMediaUrl(dbConfig.logoFooter),
-      },
-      backgrounds: {
-        mainImage: dbConfig.backgroundMainImage ? getMediaUrl(dbConfig.backgroundMainImage) : null,
-        menuImage: dbConfig.backgroundMenuImage ? getMediaUrl(dbConfig.backgroundMenuImage) : null,
-      },
       ui: {
         menu: {
           eventsLabel: dbConfig.menuLabels?.events || 'Events',
@@ -236,31 +212,6 @@ export async function loadAppConfig(): Promise<AppConfig> {
  */
 export function getStaticConfig(): StaticConfig {
   return loadStaticConfig()
-}
-
-/**
- * Helper: Get effective background value based on type
- */
-export function getBackgroundValue(config: AppConfig, target: 'main' | 'menu'): string {
-  const bg = config.theme.backgrounds[target]
-
-  if (bg.type === 'image') {
-    // If type is image, use the uploaded image from PayloadCMS
-    const imageUrl =
-      target === 'main'
-        ? config.dynamic.backgrounds.mainImage
-        : config.dynamic.backgrounds.menuImage
-
-    if (!imageUrl) {
-      throw new Error(
-        `Background type is set to "image" but no image uploaded in PayloadCMS for ${target} background`,
-      )
-    }
-    return imageUrl
-  }
-
-  // If type is color, use the color value from env
-  return bg.value
 }
 
 /**

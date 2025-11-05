@@ -1,7 +1,7 @@
 # To use this Dockerfile, you have to set `output: 'standalone'` in your next.config.js file.
 # From https://github.com/vercel/next.js/blob/canary/examples/with-docker/Dockerfile
 
-FROM node:22.17.0-slim AS base
+FROM node:22.17.0-alpine AS base
 
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
@@ -28,14 +28,8 @@ WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
-# Only include build-time environment variables (NEXT_PUBLIC_* are safe)
-ARG NEXT_PUBLIC_SITE_NAME
-ARG NEXT_PUBLIC_WEBSITE_URL
-ARG NEXT_PUBLIC_BRAND_COLOR
-ARG NEXT_PUBLIC_TEXT_PRIMARY
-ARG NEXT_PUBLIC_TEXT_SECONDARY
-ARG NEXT_PUBLIC_FONT_FAMILY
-ARG NEXT_PUBLIC_GOOGLE_MAPS_API_KEY
+ARG PAYLOAD_SECRET
+ARG DATABASE_URI
 
 # Set environment variable for standalone build
 ENV BUILD_TYPE="standalone"
@@ -45,7 +39,7 @@ ENV BUILD_TYPE="standalone"
 # Uncomment the following line in case you want to disable telemetry during the build.
 ENV NEXT_TELEMETRY_DISABLED 1
 
-RUN \
+RUN --mount=type=secret,id=dotenv,target=/app/.env \
   if [ -f pnpm-lock.yaml ]; then pnpm run build; \
   elif [ -f yarn.lock ]; then yarn run build; \
   elif [ -f package-lock.json ]; then npm run build; \

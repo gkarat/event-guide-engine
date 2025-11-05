@@ -98,7 +98,7 @@ export interface Config {
   globalsSelect: {
     'site-config': SiteConfigSelect<false> | SiteConfigSelect<true>;
   };
-  locale: 'en-US';
+  locale: 'en' | 'cs';
   user: User & {
     collection: 'users';
   };
@@ -536,31 +536,13 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
   createdAt?: T;
 }
 /**
+ * Configure UI text and labels. Note: Logos and images are managed as static files in /public/media/
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "site-config".
  */
 export interface SiteConfig {
   id: number;
-  /**
-   * Main logo for desktop (recommended: 650x100px)
-   */
-  logoDesktop: number | Media;
-  /**
-   * Logo for mobile devices (recommended: 250x50px)
-   */
-  logoMobile: number | Media;
-  /**
-   * Logo for footer (SVG recommended)
-   */
-  logoFooter: number | Media;
-  /**
-   * Used if BACKGROUND_MAIN_TYPE=image in your .env file
-   */
-  backgroundMainImage?: (number | null) | Media;
-  /**
-   * Used if BACKGROUND_MENU_TYPE=image in your .env file
-   */
-  backgroundMenuImage?: (number | null) | Media;
   menuLabels: {
     /**
      * Label for events navigation item
@@ -583,11 +565,6 @@ export interface SiteConfig {
  * via the `definition` "site-config_select".
  */
 export interface SiteConfigSelect<T extends boolean = true> {
-  logoDesktop?: T;
-  logoMobile?: T;
-  logoFooter?: T;
-  backgroundMainImage?: T;
-  backgroundMenuImage?: T;
   menuLabels?:
     | T
     | {
