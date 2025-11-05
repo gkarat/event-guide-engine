@@ -8,6 +8,7 @@ import { fileURLToPath } from 'url'
 import sharp from 'sharp'
 import dotenv from 'dotenv'
 import fs from 'fs'
+import { resendAdapter } from '@payloadcms/email-resend'
 
 import { Users } from './collections/Users'
 import { Media } from './collections/Media'
@@ -67,4 +68,13 @@ export default buildConfig({
     locales: config.i18n.locales,
     defaultLocale: config.i18n.defaultLocale,
   },
+  ...(process.env.RESEND_SECRET && process.env.RESEND_FROM_ADDRESS && process.env.RESEND_FROM_NAME
+    ? {
+        email: resendAdapter({
+          apiKey: process.env.RESEND_SECRET,
+          defaultFromAddress: process.env.RESEND_FROM_ADDRESS,
+          defaultFromName: process.env.RESEND_FROM_NAME,
+        }),
+      }
+    : {}),
 })
