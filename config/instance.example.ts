@@ -19,6 +19,9 @@ export const config = {
 
     /** IANA timezone for displaying event times (e.g., 'America/New_York', 'Europe/London', 'Asia/Tokyo') */
     timezone: 'UTC',
+
+    /** Description of your event guide (used in meta tags, etc.) */
+    description: 'Event Guide is a platform for aggregating events.',
   },
 
   /**

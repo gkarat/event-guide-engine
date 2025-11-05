@@ -19,6 +19,7 @@ export interface StaticConfig {
     name: string
     url: string
     timezone: string
+    description: string
   }
   theme: {
     colors: {
@@ -109,6 +110,7 @@ export function loadStaticConfig(): StaticConfig {
       name: instanceConfig.site.name,
       url: instanceConfig.site.url,
       timezone: instanceConfig.site.timezone,
+      description: instanceConfig.site.description,
     },
     theme: {
       colors: {

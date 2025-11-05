@@ -16,13 +16,14 @@ import { generateThemeStyles, getFontPreloadLink, validateConfig } from '@/confi
 export async function generateMetadata() {
   try {
     const config = loadStaticConfig()
+
     return {
       title: config.site.name,
-      description: `Events and artists at ${config.site.name}`,
+      description: config.site.description,
     }
   } catch (_error) {
     return {
-      title: 'Setup Required - Event Tracker',
+      title: 'Setup Required - Event Guide',
       description: 'Configuration required',
     }
   }
