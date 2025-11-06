@@ -1,6 +1,6 @@
 {
     "name": "create-event-guide-app",
-    "version": "0.1.2",
+    "version": "0.2.0",
     "description": "CLI tool to scaffold and manage Event Guide instances",
     "bin": {
       "create-event-guide-app": "./dist/index.js"

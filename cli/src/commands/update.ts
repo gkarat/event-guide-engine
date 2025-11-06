@@ -138,15 +138,36 @@ export async function update() {
     throw error;
   }
 
-  // Step 10: Merge from upstream
-  spinner.start(`Merging ${latestTag} from upstream...`);
+  // Step 10: Pull updates using subtree strategy
+  spinner.start(`Pulling ${latestTag} from upstream/app...`);
 
   try {
-    // Get current branch
-    const currentBranch = await git.revparse(["--abbrev-ref", "HEAD"]);
+    // Strategy: Use git subtree to extract only app/ subdirectory from upstream
+    // and merge it into the root of user's project
 
-    // Merge from upstream tag
-    await git.merge([`upstream/${latestTag}`]);
+    // 1. Create temporary local branch from the tag
+    await git.branch(["temp-upstream-tag", latestTag]);
+
+    // 2. Split app/ subdirectory into a separate temp branch
+    await git.raw([
+      "subtree",
+      "split",
+      "--prefix=app",
+      "--branch=temp-app-only",
+      "temp-upstream-tag",
+    ]);
+
+    // 3. Merge the app-only branch into current branch
+    await git.merge([
+      "temp-app-only",
+      "--allow-unrelated-histories",
+      "-m",
+      `Update to ${latestTag} from upstream/app`,
+    ]);
+
+    // 4. Clean up temporary branches
+    await git.branch(["-D", "temp-upstream-tag"]);
+    await git.branch(["-D", "temp-app-only"]);
 
     // Update version file
     await fs.writeFile(
@@ -156,7 +177,7 @@ export async function update() {
     );
 
     await git.add(".event-guide-version");
-    await git.commit(`Update to ${latestTag}`);
+    await git.commit(`Update version to ${latestTag}`);
 
     spinner.succeed("Update completed successfully!");
 
@@ -168,9 +189,12 @@ export async function update() {
       chalk.dim("\nIf there were database changes, run migrations.\n")
     );
   } catch (error: any) {
-    spinner.fail("Merge failed");
+    spinner.fail("Update failed");
 
-    if (error.message?.includes("CONFLICT")) {
+    if (
+      error.message?.includes("CONFLICT") ||
+      error.message?.includes("conflicts")
+    ) {
       console.log(chalk.yellow("\n⚠️  Merge conflicts detected!\n"));
       console.log(chalk.dim("This likely means you modified core files."));
       console.log(chalk.dim("Please resolve conflicts manually:\n"));

@@ -22,9 +22,11 @@ npx create-event-guide-app <project-name>
 
 This will:
 
-1. Clone the Event Guide app template
-2. Initialize git with upstream remote
-3. Create version tracking file
+1. Clone the Event Guide app template (only `/app` directory)
+2. Initialize git with upstream remote configured for subtree tracking
+3. Copy version tracking file
+
+The scaffold sets up git subtree tracking so updates only pull changes from the `/app` directory, not `/cli` or root files.
 
 After scaffolding, you need to:
 
@@ -48,7 +50,14 @@ This will:
 2. Fetch latest version from upstream
 3. Show changelog
 4. Create backup branch
-5. Merge updates (preserving your config and media)
+5. Use git subtree to pull **only** `/app` directory changes from upstream
+6. Merge updates (preserving your config and media)
+
+**How subtree works:**
+
+- Only pulls changes from upstream's `/app` directory
+- Ignores `/cli`, root `README.md`, and other monorepo files
+- Clean merges without manual cleanup
 
 **Protected directories** (never touched by update):
 

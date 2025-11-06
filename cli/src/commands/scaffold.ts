@@ -52,17 +52,32 @@ export async function scaffold(projectName: string) {
 
   spinner.start("Setting up version tracking...");
 
-  // Step 2: Initialize git with upstream
-  spinner.start("Initializing git repository...");
+  // Step 2: Initialize git with subtree tracking
+  spinner.start("Initializing git repository with subtree tracking...");
 
   try {
     const git = simpleGit(targetDir);
+
+    // Initialize empty repo
     await git.init();
-    await git.addRemote("upstream", REPO_URL);
+
+    // Add and commit current files (from app directory)
     await git.add(".");
     await git.commit("Initial commit from scaffold");
 
-    spinner.succeed("Git repository initialized");
+    // Add upstream remote
+    await git.addRemote("upstream", REPO_URL);
+
+    // Configure subtree tracking for app/ directory
+    // This tells git that this repo is tracking the app/ subdirectory from upstream
+    await git.raw([
+      "config",
+      "--add",
+      "remote.upstream.fetch",
+      "+refs/heads/*:refs/remotes/upstream/*",
+    ]);
+
+    spinner.succeed("Git repository initialized with subtree tracking");
   } catch (error) {
     spinner.fail("Failed to initialize git");
     throw error;
