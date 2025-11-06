@@ -54,6 +54,7 @@
 @media (min-width: 768px) {
   .footer {
     margin-bottom: var(--space-8);
+    margin-top: var(--space-16);
   }
 
   .footer-decoration {
