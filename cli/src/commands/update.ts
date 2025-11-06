@@ -40,9 +40,9 @@ export async function update() {
   }
 
   // Step 2: Get current version
-  const currentVersion =
-    "v" +
-    (await fs.readFile(path.join(cwd, ".event-guide-version"), "utf-8")).trim();
+  const currentVersion = (
+    await fs.readFile(path.join(cwd, ".event-guide-version"), "utf-8")
+  ).trim();
 
   console.log(chalk.dim(`Current version: ${currentVersion}\n`));
 
