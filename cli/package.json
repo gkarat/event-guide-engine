@@ -1,0 +1,33 @@
+{
+    "name": "create-event-guide-app",
+    "version": "0.1.0",
+    "description": "CLI tool to scaffold and manage Event Guide instances",
+    "bin": {
+      "create-event-guide-app": "./dist/index.js"
+    },
+    "type": "module",
+    "scripts": {
+      "build": "tsc",
+      "dev": "tsx src/index.ts",
+      "prepublishOnly": "pnpm build"
+    },
+    "keywords": ["event-guide", "cms", "events"],
+    "license": "MIT",
+    "dependencies": {
+      "commander": "^11.1.0",
+      "prompts": "^2.4.2",
+      "chalk": "^5.3.0",
+      "ora": "^7.0.1",
+      "fs-extra": "^11.2.0",
+      "simple-git": "^3.22.0",
+      "semver": "^7.5.4"
+    },
+    "devDependencies": {
+      "@types/node": "^20.10.0",
+      "@types/prompts": "^2.4.9",
+      "@types/fs-extra": "^11.0.4",
+      "@types/semver": "^7.5.6",
+      "tsx": "^4.7.0",
+      "typescript": "^5.3.3"
+    }
+  }
