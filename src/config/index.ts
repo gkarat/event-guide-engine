@@ -57,6 +57,9 @@ export interface StaticConfig {
   database: {
     uri: string
   }
+  blobStorage: {
+    vercelBlobStorageToken: string | undefined
+  }
 }
 
 /**
@@ -92,6 +95,7 @@ export function loadStaticConfig(): StaticConfig {
   // Validate required environment variables
   const databaseUri = process.env.DATABASE_URI
   const secret = process.env.PAYLOAD_SECRET
+  const vercelBlobStorageToken = process.env.BLOB_READ_WRITE_TOKEN
 
   if (!databaseUri) {
     throw new Error(
@@ -147,6 +151,10 @@ export function loadStaticConfig(): StaticConfig {
     secret,
     database: {
       uri: databaseUri,
+    },
+    blobStorage: {
+      // TODO: Support multiple blob storage providers
+      vercelBlobStorageToken: vercelBlobStorageToken,
     },
   }
 }

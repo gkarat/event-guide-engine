@@ -18,6 +18,7 @@ import { Artists } from './collections/Artists'
 import { SiteConfig } from './collections/SiteConfig'
 import { loadStaticConfig } from './config'
 import { Feedback } from './collections/Feedback'
+import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
 
 // Add more interface languages here
 // import { de } from '@payloadcms/translations/languages/de' // German
@@ -54,7 +55,15 @@ export default buildConfig({
     },
   }),
   sharp,
-  plugins: [],
+  plugins: [
+    vercelBlobStorage({
+      enabled: config.blobStorage.vercelBlobStorageToken !== undefined,
+      collections: {
+        media: true,
+      },
+      token: config.blobStorage.vercelBlobStorageToken,
+    }),
+  ],
   i18n: {
     fallbackLanguage: 'en',
     supportedLanguages: {
