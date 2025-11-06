@@ -1,14 +1,16 @@
 # Event Guide
 
-A customizable event management platform built with Next.js and PayloadCMS.
+A customizable event management platform for communities. Built with Next.js and Payload CMS.
 
-## Quick Start
+## What is Event Guide?
 
-1. Fork this repository
-2. Copy `.env.example` to `.env` and configure
-3. Run `docker-compose up -d`
-4. Visit http://localhost:3000/admin to create admin user and upload application assets
+A ready-to-deploy application that anyone can fork, configure, and run for their local event scene. Manage events, artists, and venues with minimal technical knowledge.
 
-## Configuration
+## Repository Structure
 
-See [CONFIGURATION.md](CONFIGURATION.md) for detailed configuration options.
+This is a monorepo containing:
+
+- **`/app`** - The Event Guide application template
+- **`/cli`** - Scaffolding and update tools (published as `create-event-guide-app`)
+
+TBA
