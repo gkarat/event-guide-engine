@@ -68,10 +68,10 @@ export default buildConfig({
     locales: config.i18n.locales,
     defaultLocale: config.i18n.defaultLocale,
   },
-  ...(process.env.RESEND_SECRET && process.env.RESEND_FROM_ADDRESS && process.env.RESEND_FROM_NAME
+  ...(process.env.RESEND_API_KEY && process.env.RESEND_FROM_ADDRESS && process.env.RESEND_FROM_NAME
     ? {
         email: resendAdapter({
-          apiKey: process.env.RESEND_SECRET,
+          apiKey: process.env.RESEND_API_KEY,
           defaultFromAddress: process.env.RESEND_FROM_ADDRESS,
           defaultFromName: process.env.RESEND_FROM_NAME,
         }),
